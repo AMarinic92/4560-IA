@@ -1,10 +1,14 @@
 {
     "manifest_version": 3,
-    "name": "Accesibility checker",
+    "name": "Accessibility checker",
     "version": "1.0.0",
-    "action": { "default_popup": "index.html" },
+   
+    "side_panel": {
+      "default_path": "index.html"
+    },
     "permissions":[
-      "scripting"
+      "sidePanel"
+      
     ],
     "host_permissions":[
       "http://*/*",
