@@ -5,7 +5,7 @@ const Header = () => {
             <div className="flex flex-row justify-between">
                 <div className="">
                     <div>Score</div>
-                    <div className="flex justify-center items-center glass rounded-full w-12 h-12  ">
+                    <div className="flex justify-center items-center bg-primary rounded-full w-12 h-12  ">
                         <p className="font-bold">8.5</p>
                     </div>
                 </div>
