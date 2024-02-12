@@ -34,7 +34,7 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
         <div className="flex flex-col">
             <h1 className="mb-3 text-xl font-bold">Accessability Checker</h1>
             
-            <div className="flex flex-row">
+            <div className="flex flex-row mb-1">
               <p>Checking</p>
                <p className="font-bold">{website}</p>
             </div>
