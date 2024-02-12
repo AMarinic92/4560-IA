@@ -26,8 +26,8 @@ function Stats() {
     )
 }
 
-const Header = () => {
-    const [init, setInit] = useState<Boolean>(false)
+const Header = ({changeIsReady}:any) => {
+    const [init, setInit] = useState<boolean>(false)
     return (
         <div className="flex flex-col">
             <h1 className="mb-3 text-xl font-bold">Accessability Checker</h1>
@@ -38,6 +38,7 @@ const Header = () => {
                     async ()=>{
                         const url = await getUrl()
                         setInit(true);
+                        changeIsReady(true)
                     }
                 }
             >
