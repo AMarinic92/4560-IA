@@ -1,21 +1,37 @@
+import { useState } from "react"
+import Header from "./components/header"
+import Problems from "./components/problems"
+import Suggestions from "./components/suggestions"
 
 
 function App() {
-  
+
+  const [isReady, setIsReady] = useState<boolean>(false)
+
   return (
-   <div className="container h-96 w-80  px-5 py-10">
-    <h1 className=" text-2xl font-bold">Accessibility Checker</h1>
-    <div className="flex flex-col mt-5 ">
-      <button className="btn btn-primary mb-2">
-          Button
-      </button>
-      <button className="btn btn-secondary">
-          Button
-      </button>
+    <div className="container h-96 w-full  px-5 py-5">
+      <Header
+        changeIsReady={
+          (val: boolean) => {
+            setIsReady(val)
+          }
+        }
+      />
+
+      {
+        isReady ? (<div className="flex flex-col mt-5 ">
+
+          <Problems />
+          <Suggestions />
+
+
+
+        </div>
+        ) : ""
+      }
+
 
     </div>
-
-   </div>
   )
 }
 
