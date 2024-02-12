@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getUrl } from "../utils/chrome";
+import { ChangeIsReady } from "../interfaces/functions";
 
 function Stats() {
     return (
@@ -26,7 +27,7 @@ function Stats() {
     )
 }
 
-const Header = ({changeIsReady}:any) => {
+const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
     const [init, setInit] = useState<boolean>(false)
     return (
         <div className="flex flex-col">
@@ -36,9 +37,9 @@ const Header = ({changeIsReady}:any) => {
                 className="btn btn-secondary mt-5"
                 onClick={
                     async ()=>{
-                        const url = await getUrl()
+                        const url = await getUrl();
                         setInit(true);
-                        changeIsReady(true)
+                        changeIsReady(true);
                     }
                 }
             >
