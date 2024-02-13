@@ -2,7 +2,9 @@ from read import Read
 from htmlparser import HtmlParser
 
 
-html = Read.read_web_page("https://www.geeksforgeeks.org/how-to-import-a-class-from-another-file-in-python/")
+html = Read.read_web_page("https://www.w3schools.com/python/python_comments.asp")
 parse = HtmlParser(html)
 
-print(parse.get_image_tags())
+parse.check_alt_text()
+
+
