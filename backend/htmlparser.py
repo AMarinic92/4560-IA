@@ -20,14 +20,11 @@ class HtmlParser:
          image_tags = self.get_image_tags()
          for image in image_tags:
               if(image['src'] == "" ):
-                    print("Image found with missing source, discarding")
-                    out.insert(accessError("Alt text with no source","Image or Alt Text",image))
+                    out.append(accessError("Alt text with no source","Image or Alt Text",image))
+              elif(image.has_attr('alt') and (image['alt'] == "" or image['alt'] == " ")):
+                    out.append(accessError("Alt text blank, may be decroative","Image or Alt Text",image))
+              elif(not(image.has_attr('alt'))):
+                    out.append(accessError("Alt attribute missing, maybe decroative","Image or Alt Text",image))
               elif(image.has_attr('alt')):
                     print("Alt text found on:",image['src']," with alt text:", image['alt'])
-              elif(image.has_attr('alt') and image['alt'] == ""):
-                    print("alt attribute present but blank check for decorative")
-                    out.insert(accessError("Alt text blank, may be decroative","Image or Alt Text",image))
-              elif(not(image.has_attr('alt'))):
-                    print("MISSING ALT TEXT ATTRIBUTE",image)
-                    out.insert(accessError("Alt attribute missing, maybe decroative","Image or Alt Text",image))
          return out

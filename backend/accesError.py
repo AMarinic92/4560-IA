@@ -5,4 +5,4 @@ class accessError:
         self.res = res # resources say a dict with a src link and alt text for image 
     
     def __str__(self):
-        return 'Acessibility Error '+self.name+': '+self.type+' Identifier:'+str(self.res['best'])
+        return 'Acessibility Error '+self.name+': '+self.type+' Identifier:'+str(self.res)+'\n'
