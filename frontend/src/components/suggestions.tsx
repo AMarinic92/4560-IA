@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Suggestion } from "../interfaces/objects";
 
 const Suggestions = () => {
-    const [suggestions, setSuggestions] = useState<Suggestion[]>([{ id: "1", type: "missing alt text", message: "possible alt text could be  `dancing dog` " }])
-   
+    const [suggestions, setSuggestions] = useState<Suggestion[]>([])
+    
+    useEffect(
+        ()=>{
+            setSuggestions([{ id: "1", type: "missing alt text", message: "possible alt text could be  `dancing dog` " }])
+        }
+        ,[]
+    )
 
     return (
         <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-primary mb-2">

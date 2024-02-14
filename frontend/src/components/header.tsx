@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getUrl } from "../utils/chrome";
 import { ChangeIsReady } from "../interfaces/functions";
+import {checker} from "../utils/checker"
 
 function Stats() {
     return (
@@ -30,6 +31,8 @@ function Stats() {
 const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
     const [init , setInit] = useState<boolean>(false)
     const [website , setWebsite] = useState<string|null>(null)
+
+  
     return (
         <div className="flex flex-col">
             <h1 className="mb-3 text-xl font-bold">Accessability Checker</h1>

@@ -1,8 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Problem } from "../interfaces/objects";
 
 const Problems = () => {
-    const [problems, setProblems] = useState<Problem[]>([{ id: "1", type: "missing alt text", message: "image https://image.com/example.jpeg" }])
+    const [problems, setProblems] = useState<Problem[]>([]);
+
+    useEffect(
+        ()=>{
+            setProblems([{ id: "1", type: "missing alt text", message: "image https://image.com/example.jpeg" }])
+        }
+        ,[]
+    )
+
     return (
         <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-primary mb-2">
             <input type="checkbox" />
