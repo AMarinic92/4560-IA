@@ -14,7 +14,7 @@ const Problems = () => {
                     problems.map(
                         (problem: Problem) => {
                             return (
-                                <div className="flex flex-row w-full justify-between" key={problem.id}>
+                                <div className="flex flex-row w-full justify-between  mb-2" key={problem.id}>
                                     <p className="font-bold capitalize">{problem.type}</p>
                                     <p>{problem.message}</p>
                                     <div className="divider" />
