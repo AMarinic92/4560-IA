@@ -1,16 +1,18 @@
-/* eslint-disable*/
 
-//import axios from "axios";
+/**
+ * checker
+ * sends url of page to backend to be processed and return issues and solutions
+ * @url , string of tab url ,this is null if url is null
+ * @returns solutions and accessibility issues of a web page
+ */
+export async function checker(url :string|null|undefined) {
+    // implementation to talk to the cluster
+     // if url is null something went wrong when getting a tab url
+    if(!url){
+       console.log(url)
 
-// async function checker(url :string) {
-//     try {
-//         const response = await axios(``)  ///to backend server
-//         const data = await response.data()
-//         return data
-        
-//     } catch (error) {
-//         /* failed to get response from server for some reason */
-//         return null
-//     }
+    }
+
+    return null;
     
 // }

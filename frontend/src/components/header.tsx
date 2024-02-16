@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { getUrl } from "../utils/chrome";
 import { ChangeIsReady } from "../interfaces/functions";
+import {checker} from "../utils/checker"
 
 function Stats() {
     return (
@@ -28,15 +29,17 @@ function Stats() {
 }
 
 const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
-    const [init, setInit] = useState<boolean>(false)
-    const [website,setWebsite] = useState<string|null>(null)
+    const [init , setInit] = useState<boolean>(false)
+    const [website , setWebsite] = useState<string|null>(null)
+
+  
     return (
         <div className="flex flex-col">
             <h1 className="mb-3 text-xl font-bold">Accessability Checker</h1>
             
-            <div className="flex flex-row mb-1">
+            <div className="flex flex-row mb-1 w-1/2 ">
               <p>Checking</p>
-               <p className="font-bold">{website}</p>
+               <p className="font-bold text-ellipsis ">{ website }</p>
             </div>
            
             {!init ? ( <button
@@ -44,7 +47,8 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                 onClick={
                     async ()=>{
                         const url = await getUrl();
-                        setWebsite(url?url:null)
+                        checker(url?url:null)
+                        setWebsite(url?url:null);
                         setInit(true);
                         changeIsReady(true);
                     }
