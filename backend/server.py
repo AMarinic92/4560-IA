@@ -1,5 +1,8 @@
 
 import json
+from read import Read
+from htmlparser import HtmlParser
+
 
 from flask_restful.utils import cors
 
@@ -32,7 +35,11 @@ class Parse(Resource):
     @cors.crossdomain(origin='*')
     def post(self):
         data = request.get_json(force=True)
-        print(data)
+        html = html = Read.read_web_page(data["website"])
+        parse = HtmlParser(html)
+        errors = parse.check_alt_text()
+        print(errors)
+        return data
 
     def get(self):
         return "hello world"
