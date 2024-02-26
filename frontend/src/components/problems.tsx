@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Problem } from "../interfaces/objects";
 
-const Problems = () => {
-    const [problems, setProblems] = useState<Problem[]>([]);
+const Problems = ({problems}:{problems:Problem[]}) => {
+    
 
     useEffect(
         ()=>{
-            setProblems([{ id: "1", type: "missing alt text", message: "image https://image.com/example.jpeg" }])
+            //setProblems([{ id: "1", type: "missing alt text", message: "image https://image.com/example.jpeg" }])
         }
         ,[]
     )

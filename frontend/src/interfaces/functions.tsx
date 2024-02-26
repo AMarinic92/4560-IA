@@ -1,3 +1,3 @@
 export interface ChangeIsReady{
-    (val:boolean) : void
+    (val:boolean ,url:string) : void
 }

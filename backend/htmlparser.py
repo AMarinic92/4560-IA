@@ -18,13 +18,15 @@ class HtmlParser:
     def check_alt_text(self):
          out = []
          image_tags = self.get_image_tags()
+         id_count = 0
          for image in image_tags:
               if(image['src'] == "" ):
-                    out.append(accessError("Alt text with no source","Image or Alt Text",image))
+                    out.append({"id":id_count,"type":"Alt text with no source","message":image["src"]})
               elif(image.has_attr('alt') and (image['alt'] == "" or image['alt'] == " ")):
-                    out.append(accessError("Alt text blank, may be decroative","Image or Alt Text",image))
+                    out.append({"id":id_count,"type":"Alt text blank, may be decorative","message":image["src"]})
               elif(not(image.has_attr('alt'))):
-                    out.append(accessError("Alt attribute missing, maybe decroative","Image or Alt Text",image))
+                    out.append({"id":id_count,"type":"Alt attribute missing, maybe decorative","message":image["src"]})
               elif(image.has_attr('alt')):
                     print("Alt text found on:",image['src']," with alt text:", image['alt'])
+              id_count = id_count + 1
          return out
