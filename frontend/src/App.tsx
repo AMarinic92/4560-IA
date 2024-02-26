@@ -10,21 +10,24 @@ function App() {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
 
-  const getProblems = async () => {
-    const response = await fetch("http://localhost:8080/api/parse");
+  const getProblems = async (url:string) => {
+    const response = await fetch("http://localhost:8080/api/parse",{
+
+    });
 
     if (response.ok) {
       const results = await response.json();
+      setProblems(results.problems)
       return results.problems;
     }
 
-    return null;
+    throw new Error("oops")
 
   }
 
   useEffect(
     () => {
-
+      
 
     }, [problems]
   )
@@ -33,8 +36,9 @@ function App() {
     <div className="container h-96 w-full  px-5 py-5">
       <Header
         changeIsReady={
-          (val: boolean) => {
+          async (val: boolean ,url:string) => {
             setIsReady(val)
+            await getProblems(url)
           }
         }
       />
