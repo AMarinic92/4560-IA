@@ -12,7 +12,10 @@ function App() {
 
   const getProblems = async (url:string) => {
     const response = await fetch("http://localhost:8080/api/parse",{
-
+      method:"POST",
+      body: JSON.stringify({
+        "website":url
+      })
     });
 
     if (response.ok) {
