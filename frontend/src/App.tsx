@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useAutoAnimate } from "@formkit/auto-animate/react"
 import Header from "./components/header"
 import Problems from "./components/problems"
 import Suggestions from "./components/suggestions"
@@ -10,6 +11,7 @@ function App() {
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
+  const [parent, enableAnimations] = useAutoAnimate();
 
   const getProblems = async (url: string) => {
     setLoading(true);
@@ -23,12 +25,12 @@ function App() {
     if (response.ok) {
       const results = await response.json();
       setProblems(results.problems);
-    // return results.problems;
-    }else{
+      // return results.problems;
+    } else {
       throw new Error("oops");
     }
     setLoading(false);
-   
+
 
   }
 
@@ -40,7 +42,7 @@ function App() {
   )
 
   return (
-    <div className="container h-96 w-full  px-5 py-5">
+    <div ref={parent} className="container h-96 w-full  px-5 py-5">
       <Header
         changeIsReady={
           async (val: boolean, url: string) => {
@@ -50,26 +52,27 @@ function App() {
           }
         }
       />
-      {
-        loading && (
-          <div className="flex flex-col justify-center ">
-            <span className="loading loading-bars loading-lg"></span>
+      
+        {
+          loading && (
+            <div className="flex flex-col justify-center ">
+              <span className="loading loading-bars loading-lg"></span>
+            </div>
+          )
+        }
+
+        {
+          isReady ? (<div className="flex flex-col mt-5 ">
+
+            <Problems problems={problems} />
+            <Suggestions />
+
+
+
           </div>
-        )
-      }
-
-      {
-        isReady ? (<div className="flex flex-col mt-5 ">
-
-          <Problems problems={problems} />
-          <Suggestions />
-
-
-
-        </div>
-        ) : ""
-      }
-
+          ) : ""
+        }
+      
 
     </div>
   )
