@@ -13,4 +13,4 @@
 
 
 
-python main.py                 # Run the script using the loaded Python module
+docker run html-image                 # Run the script using the loaded Python module
