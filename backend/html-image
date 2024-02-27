@@ -1,0 +1,6 @@
+FROM python:3.9
+ADD requirements.txt
+RUN pip install -r requirments.txt
+ADD main.py
+CMD ["python","./main.py"]
+
