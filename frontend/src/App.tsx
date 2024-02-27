@@ -9,8 +9,10 @@ function App() {
 
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
+  const [loading ,setLoading] = useState<boolean>(false);
 
   const getProblems = async (url:string) => {
+    setLoading(true);
     const response = await fetch("http://localhost:8080/api/parse",{
       method:"POST",
       body: JSON.stringify({
@@ -20,11 +22,11 @@ function App() {
 
     if (response.ok) {
       const results = await response.json();
-      setProblems(results.problems)
+      setProblems(results.problems);
       return results.problems;
     }
-
-    throw new Error("oops")
+    setLoading(false);
+    throw new Error("oops");
 
   }
 
@@ -40,14 +42,15 @@ function App() {
       <Header
         changeIsReady={
           async (val: boolean ,url:string) => {
-            setIsReady(val)
+            
             await getProblems(url)
+            setIsReady(val); 
           }
         }
       />
 
       {
-        isReady ? (<div className="flex flex-col mt-5 ">
+        isReady && !loading ? (<div className="flex flex-col mt-5 ">
 
           <Problems problems={problems} />
           <Suggestions />
