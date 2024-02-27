@@ -1,6 +1,7 @@
 FROM python:3.9
-ADD requirements.txt
+ADD requirements.txt /opt/app/requirements.txt
+WORKDIR /opt/app
 RUN pip install -r requirments.txt
-ADD main.py
+ADD main.py /opt/app/main.py
 CMD ["python","./main.py"]
 
