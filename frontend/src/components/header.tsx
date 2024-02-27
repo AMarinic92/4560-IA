@@ -50,7 +50,10 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                         checker(url?url:null)
                         setWebsite(url?url:null);
                         setInit(true);
-                        changeIsReady(true,url);
+                        if(url){
+                            changeIsReady(true,url as string);
+                        }
+                        
                     }
                 }
             >
