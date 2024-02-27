@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Problem } from "../interfaces/objects";
 
 const Problems = ({problems}:{problems:Problem[]}) => {

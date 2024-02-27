@@ -47,10 +47,14 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                 onClick={
                     async ()=>{
                         const url = await getUrl();
-                        checker(url?url:null)
-                        setWebsite(url?url:null);
-                        setInit(true);
-                        changeIsReady(true,url);
+                        
+                        if(url){
+                            checker(url)
+                            setWebsite(url); 
+                            changeIsReady(true,url as string);
+                            setInit(true); 
+                        }
+                        
                     }
                 }
             >
