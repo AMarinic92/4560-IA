@@ -9,8 +9,8 @@
 #SBATCH --mem=4G                      # Request 4 gigabytes of memory
 #SBATCH --mail-type=BEGIN,END,FAIL    # Send email notifications
 #SBATCH --mail-user=ummarin9@myumanitoba.ca # email TO
-#SBATCH --partition=test              # Specify the partition to submit the job to
+#SBATCH --partition=LongQ         # Specify the partition to submit the job to
 
 
 
-python htmlparser.py                 # Run the script using the loaded Python module
+python main.py                 # Run the script using the loaded Python module
