@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# [hellslurm.sbatch]
+# [helloslurm.sbatch]
 #
 #SBATCH --job-name=hello              # Job name
 #SBATCH --output=hello.out            # Output file name 
