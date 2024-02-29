@@ -24,15 +24,17 @@ WORKDIR /app
 
 COPY --from=BUILD_IMAGE /app/dist/ /app/dist/
 
-EXPOSE 8080
+EXPOSE 5173
 
 COPY package.json .
+
+COPY manifest.json .
 
 COPY vite.config.ts .
 
 RUN npm install typescript
 
 # im skeptical as to why we expose the port twice. I will look into it when i have time
-EXPOSE 8080
+EXPOSE 5173
 
 CMD ["npm", "run", "preview"]
