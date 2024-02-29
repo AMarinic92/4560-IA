@@ -4,6 +4,7 @@ import Header from "./components/header"
 import Problems from "./components/problems"
 import Suggestions from "./components/suggestions"
 import { Problem } from "./interfaces/objects";
+import { Problem } from "./interfaces/objects";
 
 
 function App() {
