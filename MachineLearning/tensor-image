@@ -5,4 +5,4 @@ RUN apt install --allow-change-held-packages libcudnn8=8.6.0.163-1+cuda11.8
 RUN pip uninstall -y tensorflow estimator keras
 RUN pip install -U tensorflow_text tensorflow tensorflow_datasets
 RUN pip install einops
-CMD ["python","./"]
+CMD ["python","./imageCaptioning.py"]
