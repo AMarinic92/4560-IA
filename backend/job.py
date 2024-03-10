@@ -33,6 +33,10 @@ class Job:
                 sbatchString += "#SBATCH --partition="+self.opt.get("partition")+"\n"
             else:
                 sbatchString += "#SBATCH --partition=LongQ\n"
+            if(self.opt.get("gpus",-1) != -1):
+                sbatchString += "#SBATCH --gres=gpu:"+self.opt.get("gpus")+"\n" 
+         #   if(self.opt.get("gpumem",-1) != -1):
+         #      sbatchString += "#SBATCH --gres=mem-per-gpu:"+self.opt.get("gpumem")+"\n"   
             sbatchString += "\n\n\n"+self.job
                 
 
