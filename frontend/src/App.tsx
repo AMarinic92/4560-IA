@@ -10,6 +10,7 @@ function App() {
 
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
+
   const [loading, setLoading] = useState<boolean>(false);
   const [parent, enableAnimations] = useAutoAnimate();
 
@@ -19,11 +20,13 @@ function App() {
       method: "POST",
       body: JSON.stringify({
         "website": url
+
       })
     });
 
     if (response.ok) {
       const results = await response.json();
+
       setProblems(results.problems);
       // return results.problems;
     } else {
@@ -37,7 +40,6 @@ function App() {
   useEffect(
     () => {
 
-
     }, [problems]
   )
 
@@ -45,10 +47,12 @@ function App() {
     <div ref={parent} className="container h-96 w-full  px-5 py-5">
       <Header
         changeIsReady={
+
           async (val: boolean, url: string) => {
 
             await getProblems(url)
             setIsReady(val);
+
           }
         }
       />
@@ -63,6 +67,7 @@ function App() {
 
         {
           isReady ? (<div className="flex flex-col mt-5 ">
+
 
             <Problems problems={problems} />
             <Suggestions />

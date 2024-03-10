@@ -47,6 +47,7 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                 onClick={
                     async ()=>{
                         const url = await getUrl();
+
                         
                         if(url){
                             checker(url)
