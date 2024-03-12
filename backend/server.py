@@ -49,7 +49,7 @@ class Parse(Resource):
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return render_template("index.html")
+    return "hello"
 
 
 api.add_resource(Parse, "/api/parse")
