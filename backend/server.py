@@ -35,13 +35,16 @@ class Parse(Resource):
     @cors.crossdomain(origin='*')
     def post(self):
         data = request.get_json(force=True)
-      #  print(data["website"])
+        print(data["type"])
+        if data["type"] == "alt":
+            #alt text
+            print("do alt text")
         html = html = Read.read_web_page(data["website"])
        # print(html)
         parse = HtmlParser(html)
         errors = parse.check_alt_text()
         #print(errors)
-        return {"problems":errors}
+        return {"problems":errors }
 
     def get(self):
         return "hello world"
@@ -49,7 +52,7 @@ class Parse(Resource):
 
 @app.route('/')
 def hello_world():  # put application's code here
-    return render_template("index.html")
+    return "hello"
 
 
 api.add_resource(Parse, "/api/parse")
