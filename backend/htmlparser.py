@@ -6,6 +6,9 @@ class HtmlParser:
         self.soup = BeautifulSoup(html, 'html.parser')
 
 
+    def get_page_words(self):
+          return self.soup.find_all(["p","h1","h2","h3"])
+
     def get_image_tags(self):
          return self.soup.find_all("img")
     
