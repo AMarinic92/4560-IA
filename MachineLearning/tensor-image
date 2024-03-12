@@ -6,4 +6,4 @@ RUN pip install -U tensorflow_text tensorflow tensorflow_datasets
 RUN pip install transformers
 RUN pip install pillow
 RUN pip install einops
-CMD ["python","./imageCaptioning.py"]
+CMD ["python","./MLmain.py"]

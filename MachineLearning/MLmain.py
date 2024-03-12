@@ -1,8 +1,8 @@
 import sys
 sys.path.insert(0, '../backend')
 
-from job import Job
-from jobScheduler import scheduleJob
+# from job import Job
+#from jobScheduler import scheduleJob
 import os.path
 
 from imageCaptioning import imageCaption

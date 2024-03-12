@@ -3,9 +3,10 @@
 import requests
 from PIL import Image
 from transformers import BlipProcessor, BlipForConditionalGeneration
+import tensorflow as tf
 
-processor = BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-model = BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base").to("cuda")
+processor = tf.BlipProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
+model = tf.BlipForConditionalGeneration.from_pretrained("Salesforce/blip-image-captioning-base").to("cuda")
 
 def imageCaption(img_url):
 
