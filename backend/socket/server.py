@@ -1,9 +1,13 @@
+from aiohttp import web
+
 import socketio
 
 
-sio = socketio.AsyncServer()
+sio = socketio.AsyncServer(async_mode='aiohttp')
 
-app = socketio.ASGIApp(sio )
+app = web.Application()
+sio.attach(app)
+
 
 
 @sio.event
@@ -18,3 +22,5 @@ def another_event(sid, json):
 def disconnect(sid):
     print('disconnect ', sid)
 
+if __name__=='__main__':
+    web.run_app(app, host='0.0.0.0', port=5000)

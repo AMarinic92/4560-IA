@@ -1,8 +1,12 @@
 import socketio
+import asyncio
 
 sio = socketio.AsyncSimpleClient()
 
-async def connect():
-    await sio.connect('http://localhost:5000')
 
-connect()
+async def main():
+    await sio.connect('http://localhost:5000')
+    await sio.disconnect()
+
+
+asyncio.run(main())
