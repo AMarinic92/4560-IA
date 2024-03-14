@@ -7,9 +7,7 @@
       "default_path": "index.html"
     },
     "permissions":[
-      "sidePanel",
-      "background.js"
-      
+      "sidePanel"
     ],
     "host_permissions":[
       "http://*/*",
