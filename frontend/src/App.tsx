@@ -8,7 +8,7 @@ import { Problem } from "./interfaces/objects";
 
 
 function App() {
-  const [socket ,setSocket] = useState<Socket|null>(null)
+  const [socket, setSocket] = useState<Socket | null>(null)
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
 
@@ -40,15 +40,20 @@ function App() {
 
   useEffect(
     () => {
-      const socketConnection = io("http://localhost:5001");
-      if(socketConnection){
-        setSocket(socketConnection);
-      }else{
-        console.log("socket is not active");
-        alert("socket is not on")
-      }
+      try {
 
-      return()=>{
+
+        const socketConnection = io("http://localhost:5001");
+        if (socketConnection) {
+          setSocket(socketConnection);
+        } else {
+          console.log("socket is not active");
+          alert("socket is not on")
+        }
+      } catch (error) {
+        setSocket(null)
+      }
+      return () => {
         socket?.disconnect()
       }
 
@@ -57,7 +62,7 @@ function App() {
 
   return (
     <div ref={parent} className="container h-96 w-full  px-5 py-5">
-      <Header
+      {socket ? (<Header
         changeIsReady={
 
           async (val: boolean, url: string) => {
@@ -67,29 +72,29 @@ function App() {
 
           }
         }
-      />
-      
-        {
-          loading && (
-            <div className="flex flex-col justify-center ">
-              <span className="loading loading-bars loading-lg"></span>
-            </div>
-          )
-        }
+      />) : ""}
 
-        {
-          isReady ? (<div className="flex flex-col mt-5 ">
-
-
-            <Problems problems={problems} />
-            <Suggestions />
-
-
-
+      {
+        loading && (
+          <div className="flex flex-col justify-center ">
+            <span className="loading loading-bars loading-lg"></span>
           </div>
-          ) : ""
-        }
-      
+        )
+      }
+
+      {
+        isReady ? (<div className="flex flex-col mt-5 ">
+
+
+          <Problems problems={problems} />
+          <Suggestions />
+
+
+
+        </div>
+        ) : ""
+      }
+
 
     </div>
   )
