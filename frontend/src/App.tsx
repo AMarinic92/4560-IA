@@ -8,7 +8,7 @@ import { Problem } from "./interfaces/objects";
 
 
 function App() {
-  const [socket, setSocket] = useState<Socket | null>(null)
+  const [socket, setSocket] = useState<Socket>();
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
 
@@ -19,6 +19,7 @@ function App() {
 
   const sendMessage = (url: string) => {
     try {
+      console.log("sending msg")
       socket?.emit("parse", { "website": url })
     } catch (error) {
       console.log(error)
@@ -63,7 +64,7 @@ function App() {
 
       } catch (error) {
         console.log("cant connect")
-        setSocket(null)
+       // setSocket(null)
       }
       return () => {
         socket?.disconnect()

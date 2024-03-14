@@ -8,7 +8,7 @@ sio.attach(app)
 @sio.event
 async def connect(sid, environ, auth):
     print('connect ', sid)
-    await sio.enter_room(sid,sid)
+    
 
 
 
@@ -16,7 +16,7 @@ async def connect(sid, environ, auth):
 async def another_event(sid, json):
     print("obj:", json)
    # await sio.enter_room(sid,json["website"])
-    await sio.emit("reply","response",room=sid)
+    await sio.emit("reply",{"response":"test"},room = sid)
 
 
 @sio.event
