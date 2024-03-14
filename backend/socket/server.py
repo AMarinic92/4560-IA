@@ -10,10 +10,10 @@ def connect(sid, environ, auth):
     print('connect ', sid)
 
 @sio.on('parse')
-def another_event(sid, json):
+async def another_event(sid, json):
     print("obj:", json)
-    sio.enter_room(sid,json["website"])
-    sio.emit("reply","response",room=json["website"])
+    await sio.enter_room(sid,json["website"])
+    await sio.emit("reply","response",room=json["website"])
 
 
 @sio.event
