@@ -5,7 +5,7 @@ sio = socketio.AsyncSimpleClient()
 
 
 async def main():
-    await sio.connect('http://localhost:5000')
+    await sio.connect('http://localhost:5001')
     await sio.disconnect()
 
 
