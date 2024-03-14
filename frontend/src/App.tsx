@@ -14,18 +14,18 @@ function App() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [parent, enableAnimations] = useAutoAnimate();
-  const [msgFailed , setMsgFailed]= useState<boolean>(false)
+  const [msgFailed, setMsgFailed] = useState<boolean>(false)
 
 
-  const sendMessage =(url:string)=>{
-    try{
-      socket?.emit("parse",{"website":url})
-    }catch(error){
+  const sendMessage = (url: string) => {
+    try {
+      socket?.emit("parse", { "website": url })
+    } catch (error) {
       console.log(error)
       setMsgFailed(true)
 
     }
-    
+
   }
 
   // const getProblems = async (url: string) => {
@@ -54,16 +54,10 @@ function App() {
   useEffect(
     () => {
       try {
-
-
         const socketConnection = io("http://localhost:5001");
-        if (socketConnection && !socket) {
-          setSocket(socketConnection);
-        } else {
-          console.log("socket is not active");
-          alert("socket is not on")
-        }
-        socket?.on("reply",(data:unknown)=>{
+        setSocket(socketConnection);
+        socket?.on("reply", (data: any) => {
+          alert("reply")
           console.log(`reply ${data}`)
         })
 
@@ -86,14 +80,14 @@ function App() {
           async (val: boolean, url: string) => {
             alert(url)
             sendMessage(url)
-           // await getProblems(url)
+            // await getProblems(url)
             setIsReady(val);
 
           }
         }
       />) : ""}
 
-      {msgFailed?"message failed to send":""}
+      {msgFailed ? "message failed to send" : ""}
 
       {
         loading && (
