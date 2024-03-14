@@ -58,4 +58,4 @@ def hello_world():  # put application's code here
 api.add_resource(Parse, "/api/parse")
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8080, threaded=True)
+    app.run(host='0.0.0.0', port=5001, threaded=True)
