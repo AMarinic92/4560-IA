@@ -12,6 +12,9 @@ def connect(sid, environ, auth):
 @sio.on('parse')
 def another_event(sid, json):
     print("obj:", json)
+    sio.enter_room(sid,json["website"])
+    sio.emit("reply","response",room=json["website"])
+
 
 @sio.event
 def disconnect(sid):

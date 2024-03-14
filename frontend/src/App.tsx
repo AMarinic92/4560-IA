@@ -57,12 +57,16 @@ function App() {
 
 
         const socketConnection = io("http://localhost:5001");
-        if (socketConnection) {
+        if (socketConnection && !socket) {
           setSocket(socketConnection);
         } else {
           console.log("socket is not active");
           alert("socket is not on")
         }
+        socket?.on("reply",(data:unknown)=>{
+          console.log(`reply ${data}`)
+        })
+
       } catch (error) {
         console.log("cant connect")
         setSocket(null)
