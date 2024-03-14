@@ -14,29 +14,42 @@ function App() {
 
   const [loading, setLoading] = useState<boolean>(false);
   const [parent, enableAnimations] = useAutoAnimate();
+  const [msgFailed , setMsgFailed]= useState<boolean>(false)
 
-  const getProblems = async (url: string) => {
-    setLoading(true);
-    const response = await fetch("http://localhost:8080/api/parse", {
-      method: "POST",
-      body: JSON.stringify({
-        "website": url
 
-      })
-    });
+  const sendMessage =(url:string)=>{
+    try{
+      socket?.emit("message",{"website":url})
+    }catch(error){
+      console.log(error)
+      setMsgFailed(true)
 
-    if (response.ok) {
-      const results = await response.json();
-
-      setProblems(results.problems);
-      // return results.problems;
-    } else {
-      throw new Error("oops");
     }
-    setLoading(false);
-
-
+    
   }
+
+  // const getProblems = async (url: string) => {
+  //   setLoading(true);
+  //   const response = await fetch("http://localhost:8080/api/parse", {
+  //     method: "POST",
+  //     body: JSON.stringify({
+  //       "website": url
+
+  //     })
+  //   });
+
+  //   if (response.ok) {
+  //     const results = await response.json();
+
+  //     setProblems(results.problems);
+  //     // return results.problems;
+  //   } else {
+  //     throw new Error("oops");
+  //   }
+  //   setLoading(false);
+
+
+  // }
 
   useEffect(
     () => {
@@ -51,6 +64,7 @@ function App() {
           alert("socket is not on")
         }
       } catch (error) {
+        console.log("cant connect")
         setSocket(null)
       }
       return () => {
@@ -66,13 +80,16 @@ function App() {
         changeIsReady={
 
           async (val: boolean, url: string) => {
-
-            await getProblems(url)
+            alert(url)
+            sendMessage(url)
+           // await getProblems(url)
             setIsReady(val);
 
           }
         }
       />) : ""}
+
+      {msgFailed?"message failed to send":""}
 
       {
         loading && (

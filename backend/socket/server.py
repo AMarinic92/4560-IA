@@ -1,14 +1,9 @@
 from aiohttp import web
-
 import socketio
 
-
-sio = socketio.AsyncServer(async_mode='aiohttp')
-
+sio = socketio.AsyncServer(async_mode='aiohttp',cors_allowed_origins='*')
 app = web.Application()
 sio.attach(app)
-
-
 
 @sio.event
 def connect(sid, environ, auth):
