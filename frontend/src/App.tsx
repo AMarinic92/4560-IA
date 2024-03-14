@@ -19,7 +19,7 @@ function App() {
 
   const sendMessage =(url:string)=>{
     try{
-      socket?.emit("message",{"website":url})
+      socket?.emit("parse",{"website":url})
     }catch(error){
       console.log(error)
       setMsgFailed(true)
