@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import io, { Socket } from 'socket.io-client';
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import Header from "./components/header"
 import Problems from "./components/problems"
@@ -7,7 +8,7 @@ import { Problem } from "./interfaces/objects";
 
 
 function App() {
-
+  const [socket ,setSocket] = useState<Socket|null>(null)
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
 
@@ -39,6 +40,17 @@ function App() {
 
   useEffect(
     () => {
+      const socketConnection = io("http://localhost:5001");
+      if(socketConnection){
+        setSocket(socketConnection);
+      }else{
+        console.log("socket is not active");
+        alert("socket is not on")
+      }
+
+      return()=>{
+        socket?.disconnect()
+      }
 
     }, [problems]
   )
