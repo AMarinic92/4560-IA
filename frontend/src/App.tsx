@@ -22,6 +22,7 @@ function App() {
   const sendMessage = (url: string) => {
     try {
       console.log("sending msg")
+      setLoading(true);
       socket?.emit("parse", { "website": url })
     } catch (error) {
       console.log(error)
@@ -29,6 +30,11 @@ function App() {
     }
   }
 
+  const messageEvent =(data:any)=>{
+    setLoading(false);
+    // set data  for frontend to load here
+    setIsReady(true);
+  }
 
 
   useEffect(
@@ -36,7 +42,8 @@ function App() {
       try {
         console.log(socket)
         socket?.on("reply", (data: any) => {
-        console.log(`reply ${data.response}`)
+          console.log(`reply ${data?.response}`);
+          messageEvent(data)
         })
 
       } catch (error) {
@@ -55,7 +62,7 @@ function App() {
             alert(url)
             sendMessage(url)
             // await getProblems(url)
-            setIsReady(val);
+            //setIsReady(val);
 
           }
         }
