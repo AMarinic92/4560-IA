@@ -5,12 +5,14 @@ import Header from "./components/header"
 import Problems from "./components/problems"
 import Suggestions from "./components/suggestions"
 import { Problem } from "./interfaces/objects";
+import useSocket from "./hook/useSocket";
 
 
 function App() {
-  const [socket, setSocket] = useState<Socket>();
+  //const [socket, setSocket] = useState<Socket>();
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
+  const socket = useSocket()
 
   const [loading, setLoading] = useState<boolean>(false);
   const [parent, enableAnimations] = useAutoAnimate();
@@ -29,48 +31,24 @@ function App() {
 
   }
 
-  // const getProblems = async (url: string) => {
-  //   setLoading(true);
-  //   const response = await fetch("http://localhost:8080/api/parse", {
-  //     method: "POST",
-  //     body: JSON.stringify({
-  //       "website": url
-
-  //     })
-  //   });
-
-  //   if (response.ok) {
-  //     const results = await response.json();
-
-  //     setProblems(results.problems);
-  //     // return results.problems;
-  //   } else {
-  //     throw new Error("oops");
-  //   }
-  //   setLoading(false);
-
-
-  // }
+  
 
   useEffect(
     () => {
       try {
-        const socketConnection = io("http://localhost:5001");
-        setSocket(socketConnection);
+       console.log(socket)
         socket?.on("reply", (data: any) => {
-          alert("reply")
-          console.log(`reply ${data}`)
+         // alert("reply")
+          console.log(`reply ${data.response}`)
+          //socket.disconnect()
         })
 
       } catch (error) {
         console.log("cant connect")
        // setSocket(null)
       }
-      return () => {
-        socket?.disconnect()
-      }
-
-    }, [problems]
+     
+    }, [socket ,problems]
   )
 
   return (
