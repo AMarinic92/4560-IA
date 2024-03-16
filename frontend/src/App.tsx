@@ -26,29 +26,24 @@ function App() {
     } catch (error) {
       console.log(error)
       setMsgFailed(true)
-
     }
-
   }
 
-  
+
 
   useEffect(
     () => {
       try {
-       console.log(socket)
+        console.log(socket)
         socket?.on("reply", (data: any) => {
-         // alert("reply")
-          console.log(`reply ${data.response}`)
-          //socket.disconnect()
+        console.log(`reply ${data.response}`)
         })
 
       } catch (error) {
         console.log("cant connect")
-       // setSocket(null)
       }
-     
-    }, [socket ,problems]
+
+    }, [socket, problems]
   )
 
   return (
