@@ -7,7 +7,7 @@ const useSocket = () => {
     useEffect(
         () => {
             try {
-                const socketConnection = io("http://localhost:5000");
+                const socketConnection = io("http://localhost:5001");
                 setSocket(socketConnection);
             } catch (error) {
                 console.log("cant connect")
@@ -19,7 +19,7 @@ const useSocket = () => {
         }
         , []
     )
-    return socket;
+    return socket as Socket;
 }
 
 export default useSocket;
