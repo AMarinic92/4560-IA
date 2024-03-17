@@ -1,3 +1,7 @@
+# Creates a slurm job to run backend in docker
+
+from read import Read
+from htmlparser import HtmlParser
 from job import Job
 from jobScheduler import scheduleJob
 import os.path

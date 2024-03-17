@@ -4,76 +4,87 @@ import Header from "./components/header"
 import Problems from "./components/problems"
 import Suggestions from "./components/suggestions"
 import { Problem } from "./interfaces/objects";
-import { Problem } from "./interfaces/objects";
+import useSocket from "./hook/useSocket";
 
 
 function App() {
-
+  //const [socket, setSocket] = useState<Socket>();
   const [isReady, setIsReady] = useState<boolean>(false);
   const [problems, setProblems] = useState<Problem[]>([]);
+  const socket = useSocket()
+
   const [loading, setLoading] = useState<boolean>(false);
   const [parent, enableAnimations] = useAutoAnimate();
+  const [msgFailed, setMsgFailed] = useState<boolean>(false)
 
-  const getProblems = async (url: string) => {
-    setLoading(true);
-    const response = await fetch("http://localhost:8080/api/parse", {
-      method: "POST",
-      body: JSON.stringify({
-        "website": url
-      })
-    });
 
-    if (response.ok) {
-      const results = await response.json();
-      setProblems(results.problems);
-      // return results.problems;
-    } else {
-      throw new Error("oops");
+  const sendMessage = (url: string) => {
+    try {
+      console.log("sending msg")
+      setLoading(true);
+      socket?.emit("parse", { "website": url })
+      // setProblems()
+    } catch (error) {
+      console.log(error)
+      setMsgFailed(true)
     }
-    setLoading(false);
-
-
   }
+
+  const messageEvent = (data: any) => {
+    // set problems
+    setProblems(data.response)
+    //tell frontend components we are ready
+    setLoading(false);
+    setIsReady(true);
+  }
+
 
   useEffect(
     () => {
+      try {
+        console.log(socket)
+        socket?.on("reply", (data: any) => {
+          console.log(`reply ${data?.response}`);
+          messageEvent(data)
+        })
 
+      } catch (error) {
+        console.log("cant connect")
+      }
 
-    }, [problems]
+    }, [socket, problems]
   )
 
   return (
     <div ref={parent} className="container h-96 w-full  px-5 py-5">
-      <Header
+      {socket ? (<Header
         changeIsReady={
-          async (val: boolean, url: string) => {
 
-            await getProblems(url)
-            setIsReady(val);
+          async (val: boolean, url: string) => {
+            sendMessage(url)
           }
         }
-      />
-      
-        {
-          loading && (
-            <div className="flex flex-col justify-center ">
-              <span className="loading loading-bars loading-lg"></span>
-            </div>
-          )
-        }
+      />) : ""}
 
-        {
-          isReady ? (<div className="flex flex-col mt-5 ">
+      {msgFailed ? "message failed to send" : ""}
 
-            <Problems problems={problems} />
-            <Suggestions />
-
-
-
+      {
+        loading && (
+          <div className="flex flex-col justify-center ">
+            <span className="loading loading-bars loading-lg"></span>
           </div>
-          ) : ""
-        }
-      
+        )
+      }
+
+      {
+        isReady ? (<div className="flex flex-col mt-5 ">
+
+          <Problems problems={problems} />
+
+        </div>
+        ) : ""
+      }
+
 
     </div>
   )

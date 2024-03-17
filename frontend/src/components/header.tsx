@@ -47,6 +47,7 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                 onClick={
                     async ()=>{
                         const url = await getUrl();
+
                         
                         if(url){
                             checker(url)
@@ -59,7 +60,7 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                 }
             >
                 Analyze website
-            </button>): (<Stats />)}
+            </button>): ("")}
 
         </div>
     )

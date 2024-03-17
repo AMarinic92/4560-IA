@@ -1,3 +1,4 @@
+# Schedules a slurm job using the file created by job.py.
 from job import Job
 import subprocess
 def scheduleJob(name,id,task,opt):

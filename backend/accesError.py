@@ -1,3 +1,5 @@
+#This class creates an accessibility error, and creates a message to output. 
+
 class accessError:
     def __init__(self,name,type,res):
         self.name = name
