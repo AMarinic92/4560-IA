@@ -1,6 +1,7 @@
 export interface Problem{
-    id:string
+    id:string|number
     type:string 
+    imageUrl:string
     message:string
     suggestion:string
 }

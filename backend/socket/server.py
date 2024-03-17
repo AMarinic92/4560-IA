@@ -15,18 +15,25 @@ async def connect(sid, environ, auth):
 @sio.on('parse')
 async def another_event(sid, json):
     print("obj:", json)
-   
+
+    # server response example
+    # where id is unique
+    # image url is image the image url
+    # type is type of alt text issue
+    # suggestion
     responseEg = {
         "response":[
             {
-                "id":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg/1024px-40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg",
+                "id":0,
+                "imageUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg/1024px-40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg",
                 "type":"bad alt txt",
                 "message":"",
                 "suggestion":"guy swimming in a pool"
 
             },
             {
-                "id":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg/1024px-40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg",
+                "id":1,
+                 "imageUrl":"https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg/1024px-40._Schwimmzonen-_und_Mastersmeeting_Enns_2017_100m_Brust_Herren_USC_Traun-9897.jpg",
                 "type":"bad alt txt",
                 "message":"",
                 "suggestion":"guy swimming in a pool"

@@ -23,6 +23,7 @@ function App() {
       console.log("sending msg")
       setLoading(true);
       socket?.emit("parse", { "website": url })
+     // setProblems()
     } catch (error) {
       console.log(error)
       setMsgFailed(true)
@@ -30,8 +31,10 @@ function App() {
   }
 
   const messageEvent =(data:any)=>{
+    // set problems
+    setProblems(data.response)
+    //tell frontend components we are ready
     setLoading(false);
-    // set data  for frontend to load here
     setIsReady(true);
   }
 
