@@ -23,3 +23,9 @@ Our AI-powered Accessibility Checker is aimed at streamlining the process of ens
 [AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)
 
 ## Resources
+
+### Machine Learning
+
+#### Models used
+
+- Image-to-Text: [https://huggingface.co/tasks/image-to-text]

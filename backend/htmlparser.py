@@ -6,27 +6,31 @@ class HtmlParser:
         self.soup = BeautifulSoup(html, 'html.parser')
 
 
+    # Finds all images in a webpage
     def get_image_tags(self):
-         return self.soup.find_all("img")
+        return self.soup.find_all("img")
     
+    # Finds all images in webpage with no alt text tag
     def get_missing_alt_text(self):
-         return self.soup.find_all("img", attrs={"alt": False})
+        return self.soup.find_all("img", attrs={"alt": False})
 
+    # Finds all images in webpage with a blank alt text tag
     def get_blank_alt_text(self):
-         return self.soup.find_all("img", attrs={"alt": ""})
+        return self.soup.find_all("img", attrs={"alt": ""})
     
+    # Creates a return message based on image situation.
     def check_alt_text(self):
-         out = []
-         image_tags = self.get_image_tags()
-         id_count = 0
-         for image in image_tags:
-              if(image['src'] == "" ):
-                    out.append({"id":id_count,"type":"Alt text with no source","message":image["src"]})
-              elif(image.has_attr('alt') and (image['alt'] == "" or image['alt'] == " ")):
-                    out.append({"id":id_count,"type":"Alt text blank, may be decorative","message":image["src"]})
-              elif(not(image.has_attr('alt'))):
-                    out.append({"id":id_count,"type":"Alt attribute missing, maybe decorative","message":image["src"]})
-              elif(image.has_attr('alt')):
-                    print("Alt text found on:",image['src']," with alt text:", image['alt'])
-              id_count = id_count + 1
-         return out
+        out = []
+        image_tags = self.get_image_tags()
+        id_count = 0
+        for image in image_tags:
+            if(image['src'] == "" ):
+                out.append({"id":id_count,"type":"Alt text with no source","message":image["src"]})
+            elif(image.has_attr('alt') and (image['alt'] == "" or image['alt'] == " ")):
+                out.append({"id":id_count,"type":"Alt text blank, may be decorative","message":image["src"]})
+            elif(not(image.has_attr('alt'))):
+                out.append({"id":id_count,"type":"Alt attribute missing, maybe decorative","message":image["src"]})
+            elif(image.has_attr('alt')):
+                print("Alt text found on:",image['src']," with alt text:", image['alt'])
+            id_count = id_count + 1
+        return out

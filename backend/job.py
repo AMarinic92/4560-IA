@@ -42,10 +42,12 @@ class Job:
         return sbatchString
     
 
+    # Function to open a new file with write mode, and write the sbatch file
     def sbatchGen(self):
         file = open(self.getLocation(),"w")
         file.write(self.sbatchString())
         
+    # Returns the location where the sbatch file is stored. 
     def getLocation(self):    
         outstring = "/tmp/" 
         if(type(self.opt) is dict):
