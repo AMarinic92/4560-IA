@@ -6,10 +6,10 @@ def scheduleJob(name,id,task,opt):
     else:
         newJob = Job(name,id,task,opt)
     newJob.sbatchGen()
-    subprocess.run(["sbatch",newJob.getLocation()],capture_output=True)
+    subprocess.run(["sbatch",newJob.getLocation()],capture_output=True,user="ummarin9")
 
 def scheduleJob(job):
     if(type(job) is Job):
         newJob = job
     newJob.sbatchGen()
-    subprocess.run(["sbatch",newJob.getLocation()],capture_output=True)
+    subprocess.run(["sbatch",newJob.getLocation()],capture_output=True,user="ummarin9")

@@ -1,6 +1,8 @@
+import sys 
+sys.path.insert(0,'./cmds')
 from aiohttp import web
 import socketio
-import json as Json
+from accessML import accessMl
 
 sio = socketio.AsyncServer(async_mode='aiohttp',cors_allowed_origins='*')
 app = web.Application()
@@ -15,8 +17,13 @@ async def connect(sid, environ, auth):
 
 @sio.on('parse')
 async def another_event(sid, json):
-    print("obj:", json)
-
+    web_url = json.get("website",-1)
+    print(web_url)
+    checker = accessMl(web_url)
+    if(checker.get_missing_alt()==None):
+        pass #Do a reponse for no errors
+    else:
+        pass
     # server response example
     # where id is unique
     # image url is image the image url

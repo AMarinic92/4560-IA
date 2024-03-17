@@ -25,11 +25,13 @@ class HtmlParser:
          for image in image_tags:
               if(image['src'] == "" ):
                     out.append({"id":id_count,"type":"Alt text with no source","message":image["src"]})
+                    id_count += 1
               elif(image.has_attr('alt') and (image['alt'] == "" or image['alt'] == " ")):
                     out.append({"id":id_count,"type":"Alt text blank, may be decorative","message":image["src"]})
+                    id_count += 1
               elif(not(image.has_attr('alt'))):
                     out.append({"id":id_count,"type":"Alt attribute missing, maybe decorative","message":image["src"]})
-              elif(image.has_attr('alt')):
-                    print("Alt text found on:",image['src']," with alt text:", image['alt'])
-              id_count = id_count + 1
+                    id_count += 1
+
+            
          return out

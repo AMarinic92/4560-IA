@@ -1,9 +1,5 @@
 import tensorflow as tf
 from transformers import pipeline
-
-import sys
-sys.path.insert(0, '../backend')
-
 from htmlparser import HtmlParser
 from read import Read
 
