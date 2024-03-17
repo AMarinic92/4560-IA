@@ -23,14 +23,14 @@ function App() {
       console.log("sending msg")
       setLoading(true);
       socket?.emit("parse", { "website": url })
-     // setProblems()
+      // setProblems()
     } catch (error) {
       console.log(error)
       setMsgFailed(true)
     }
   }
 
-  const messageEvent =(data:any)=>{
+  const messageEvent = (data: any) => {
     // set problems
     setProblems(data.response)
     //tell frontend components we are ready
@@ -61,11 +61,7 @@ function App() {
         changeIsReady={
 
           async (val: boolean, url: string) => {
-            alert(url)
             sendMessage(url)
-            // await getProblems(url)
-            //setIsReady(val);
-
           }
         }
       />) : ""}
@@ -83,11 +79,7 @@ function App() {
       {
         isReady ? (<div className="flex flex-col mt-5 ">
 
-
           <Problems problems={problems} />
-          <Suggestions />
-
-
 
         </div>
         ) : ""
