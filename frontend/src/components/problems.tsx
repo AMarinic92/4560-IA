@@ -1,32 +1,35 @@
 import { useEffect } from "react";
 import { Problem } from "../interfaces/objects";
+import Card from "./card";
 
-const Problems = ({problems}:{problems:Problem[]}) => {
-    
+const Problems = ({ problems }: { problems: Problem[] }) => {
+
 
     useEffect(
-        ()=>{
+        () => {
             //setProblems([{ id: "1", type: "missing alt text", message: "image https://image.com/example.jpeg" }])
         }
-        ,[]
+        , []
     )
 
     return (
         <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-primary mb-2">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
-                Problems
+                Problems and Solutions
             </div>
             <div className="collapse-content">
                 {
                     problems.map(
                         (problem: Problem) => {
                             return (
-                                <div className="flex flex-row w-full justify-between  mb-2" key={problem.id}>
-                                    <p className="font-bold capitalize">{problem.type}</p>
-                                    <p>{problem.message}</p>
-                                    <div className="divider" />
-                                </div>
+                                <Card
+                                    id={problem.id}
+                                    imageUrl={problem.imageUrl}
+                                    type={problem.type}
+                                    message=""
+                                    suggestion={problem.suggestion}
+                                />
                             )
                         }
                     )
