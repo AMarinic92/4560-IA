@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import io, { Socket } from 'socket.io-client';
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import Header from "./components/header"
 import Problems from "./components/problems"
@@ -22,13 +21,22 @@ function App() {
   const sendMessage = (url: string) => {
     try {
       console.log("sending msg")
+      setLoading(true);
       socket?.emit("parse", { "website": url })
+     // setProblems()
     } catch (error) {
       console.log(error)
       setMsgFailed(true)
     }
   }
 
+  const messageEvent =(data:any)=>{
+    // set problems
+    setProblems(data.response)
+    //tell frontend components we are ready
+    setLoading(false);
+    setIsReady(true);
+  }
 
 
   useEffect(
@@ -36,7 +44,8 @@ function App() {
       try {
         console.log(socket)
         socket?.on("reply", (data: any) => {
-        console.log(`reply ${data.response}`)
+          console.log(`reply ${data?.response}`);
+          messageEvent(data)
         })
 
       } catch (error) {
@@ -55,7 +64,7 @@ function App() {
             alert(url)
             sendMessage(url)
             // await getProblems(url)
-            setIsReady(val);
+            //setIsReady(val);
 
           }
         }

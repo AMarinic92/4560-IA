@@ -60,7 +60,7 @@ const Header = ({changeIsReady}:{changeIsReady:ChangeIsReady}) => {
                 }
             >
                 Analyze website
-            </button>): (<Stats />)}
+            </button>): ("")}
 
         </div>
     )

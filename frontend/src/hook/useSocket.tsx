@@ -19,7 +19,7 @@ const useSocket = () => {
         }
         , []
     )
-    return socket;
+    return socket as Socket;
 }
 
 export default useSocket;
