@@ -12,9 +12,11 @@ class accessMl:
     def get_captions(self):
         missing = get_missing_alt()
         toCaption = []
+        asArg = ""
         if(missing != None):
             for image in missing:
                 src = image.get("img",-1)
                 if(src != -1):
                     toCaption.append(src)
-        
+                    asArg += " "+src
+
