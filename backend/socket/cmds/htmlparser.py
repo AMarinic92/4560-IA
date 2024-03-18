@@ -32,6 +32,4 @@ class HtmlParser:
               elif(not(image.has_attr('alt'))):
                     out.append({"id":id_count,"type":"Alt attribute missing, maybe decorative","img":image["src"]})
                     id_count += 1
-
-            
          return out

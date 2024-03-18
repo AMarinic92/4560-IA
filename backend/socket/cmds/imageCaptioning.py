@@ -9,3 +9,5 @@ class imageCap:
     def get_caption(self):
         captioner = pipeline("image-to-text",model="Salesforce/blip-image-captioning-base")
         self.caption = captioner(self.image_url)
+        return self.caption
+    
