@@ -8,3 +8,13 @@ class accessMl:
     
     def get_missing_alt(self):
             out = self.parser.get_missing_alt_text()
+
+    def get_captions(self):
+        missing = get_missing_alt()
+        toCaption = []
+        if(missing != None):
+            for image in missing:
+                src = image.get("img",-1)
+                if(src != -1):
+                    toCaption.append(src)
+        

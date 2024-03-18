@@ -3,6 +3,7 @@ sys.path.insert(0,'./cmds')
 from aiohttp import web
 import socketio
 from accessML import accessMl
+import subprocess
 
 sio = socketio.AsyncServer(async_mode='aiohttp',cors_allowed_origins='*')
 app = web.Application()
@@ -21,15 +22,17 @@ async def another_event(sid, json):
     print(web_url)
     checker = accessMl(web_url)
     if(checker.get_missing_alt()==None):
-        pass #Do a reponse for no errors
+        response = {"response":[]}
     else:
-        pass
+        checker.get_captions()
     # server response example
     # where id is unique
     # image url is image the image url
     # type is type of alt text issue
     # suggestion
-    responseEg = {
+    
+    """
+    response = {
         "response":[
             {
                 "id":0,
@@ -49,7 +52,8 @@ async def another_event(sid, json):
             }
         ]
     }
-    await sio.emit("reply",responseEg ,room = sid)
+    """
+    await sio.emit("reply",response ,room = sid)
 
 
 @sio.event
