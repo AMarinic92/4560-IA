@@ -27,7 +27,6 @@ class accessMl:
                     
             if(len(toCaption)>0):
                 pass
-        #compProcess = subprocess.run(toCaption,capture_output=True, text=True,user="ummarin9")
         #print(toCaption)
         compProcess = subprocess.run(toCaption,capture_output=True, text=True,user="ummarin9")
         out = compProcess.stdout

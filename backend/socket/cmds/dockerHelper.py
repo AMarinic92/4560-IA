@@ -4,10 +4,11 @@ import sys
 from imageCaptioning import imageCap
 
 def main() ->int:
-    args = sys.argv[1:]
-    print(args)
-    #args = ["https://static.wikia.nocookie.net/warhammer40k/images/5/55/AnkhoftheTriarch9thEdition.jpg/revision/latest/scale-to-width-down/1000?cb=20200925173557",
-    #                    "https://static.wikia.nocookie.net/warhammer40k/images/3/33/Necron_Warriors_vs_UM.png/revision/latest/scale-to-width-down/1000?cb=20160811061758"]
+    args = sys.argv[1:-1]
+
+    #args = ["https://static.wikia.nocookie.net/warhammer40k/images/5/55/AnkhoftheTriarch9thEdition.jpg",
+    #                    "https://static.wikia.nocookie.net/warhammer40k/images/3/33/Necron_Warriors_vs_UM.png"]
+
     json = ""
     captions = imageCap(args).get_caption()
     id_count = 0
