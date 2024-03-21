@@ -12,7 +12,6 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@types/chrome": "^0.0.260",
-    "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io-client": "^4.7.4"
