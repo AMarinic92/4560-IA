@@ -1,7 +1,7 @@
 import { Problem } from "../interfaces/objects";
 
-const Card = (props:Problem) => {
-    return ( 
+const Card = (props: Problem) => {
+    return (
         <div className="flex flex-row  mb-5">
             <img
                 src={props.imageUrl}
@@ -10,18 +10,24 @@ const Card = (props:Problem) => {
                 height={90}
                 style={
                     {
-                        objectFit:"contain"
+                        objectFit: "contain"
                     }
-                }
+                }                                               
             >
             </img>
-            <div className="flex flex-col prose">
-                    <p className="font-bold"> Type: {props.type}</p>
-                    <p className="font-bold">Suggestion: {props.suggestion}</p>
+            <div className="flex flex-col prose-sm">
+                <div className="flex flex-row justify-between">
+                    <p className="font-bold">Type: </p>
+                    <p>{props.type}</p>
+                </div>
+                <div className="flex flex-row justify-between">
+                    <p className="font-bold">Suggestion: </p>
+                    <p> {props.suggestion}</p>
+                </div>
             </div>
 
         </div>
-     );
+    );
 }
- 
+
 export default Card;
