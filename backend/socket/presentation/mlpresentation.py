@@ -3,7 +3,8 @@ import json as js
 sys.path.insert(0,'./cmds')
 
 
-
+# talks to logic layer and puts it in the proper format
+# generates alt text
 async def image_analysis(web_url):
     checker = accessMl(web_url)
     if(checker.get_missing_alt()==None):
