@@ -1,3 +1,4 @@
+import os
 from read import Read
 from htmlparser import HtmlParser
 from dotenv import load_dotenv
@@ -5,6 +6,7 @@ load_dotenv()
 
 
 USER = os.getenv("UM_USERNAME")
+
 import subprocess
 class accessMl:
     def __init__(self,website):
