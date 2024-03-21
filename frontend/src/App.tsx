@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useAutoAnimate } from "@formkit/auto-animate/react"
 import Header from "./components/header"
 import Problems from "./components/problems"
-import Suggestions from "./components/suggestions"
 import { Problem } from "./interfaces/objects";
 import useSocket from "./hook/useSocket";
 
@@ -44,6 +43,7 @@ function App() {
       try {
         console.log(socket)
         socket?.on("reply", (data: any) => {
+          enableAnimations(true)
           console.log(`reply ${data?.response}`);
           messageEvent(data)
         })
@@ -62,6 +62,7 @@ function App() {
 
           async (val: boolean, url: string) => {
             sendMessage(url)
+            console.log(val)
           }
         }
       />) : ""}
