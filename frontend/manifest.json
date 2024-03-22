@@ -1,17 +1,22 @@
 {
-    "manifest_version": 3,
-    "name": "Accessibility checker",
-    "version": "1.0.0",
-   
-    "side_panel": {
-      "default_path": "index.html"
-    },
-    "permissions":[
-      "sidePanel",
-      "scripting"
+  "manifest_version": 3,
+  "name": "Accessibility checker",
+  "version": "1.0.0",
+  "background": {
+    "scripts": [
+      "background.js"
     ],
-    "host_permissions":[
-      "http://*/*",
-      "https://*/*"
-    ]
-  }
+    "persistent": false
+  },
+  "side_panel": {
+    "default_path": "index.html"
+  },
+  "permissions": [
+    "sidePanel",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://*/*",
+    "https://*/*"
+  ]
+}

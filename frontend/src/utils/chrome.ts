@@ -16,14 +16,14 @@ export async function getUrl() {
 
 export async function showImage(src:string) {
     const [tab] = await chrome.tabs.query({active:true})
-    const id =getImageID(src)
-    console.log(id)
+   // const id =getImageID(src)
+   // console.log(id)
     chrome.scripting.executeScript({
         target:{tabId:tab.id!},
         func:()=>{
             const images = document.querySelectorAll(`img[src="${src}"]`)
             images.forEach(image => {
-                image.style.outline = "solid 5px red"; 
+                console.log(image)
               });
         }
     })
