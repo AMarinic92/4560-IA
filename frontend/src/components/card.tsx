@@ -4,10 +4,16 @@
 
 
 import { Problem } from "../interfaces/objects";
+import { showImage } from "../utils/chrome";
 
 const Card = (props:Problem) => {
     return ( 
-        <div className="flex flex-row justify-center  mb-5">
+        <div className="flex flex-row justify-center  mb-5"
+        onClick={
+            ()=> showImage(props.imageUrl)
+        }
+        
+        >
             <img
                 src={props.imageUrl}
                 alt=""
