@@ -4,6 +4,7 @@ import Header from "./components/header"
 import Problems from "./components/problems"
 import { Problem } from "./interfaces/objects";
 import useSocket from "./hook/useSocket";
+import { Socket } from "socket.io-client";
 
 
 function App() {
@@ -46,6 +47,11 @@ function App() {
           enableAnimations(true)
           console.log(`reply ${data?.response}`);
           messageEvent(data)
+        })
+        
+        //disconnect
+        socket.on("disconnect",(reason:Socket.DisconnectReason)=>{
+          console.log(reason)
         })
 
       } catch (error) {
