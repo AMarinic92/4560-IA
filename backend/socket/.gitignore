@@ -1,2 +1,4 @@
 /__pycache__
 .env
+/cmds/__pycache__
+/presentation/__pycache__

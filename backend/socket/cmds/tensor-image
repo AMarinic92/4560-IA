@@ -1,0 +1,9 @@
+FROM tensorflow/tensorflow:latest-gpu
+COPY . /opt/app/
+WORKDIR /opt/app
+RUN pip install -U tensorflow_text tensorflow tensorflow_datasets
+RUN pip install transformers
+RUN pip install pillow
+RUN pip install einops
+RUN pip install tf-keras
+CMD ["python","./imageCaptioning.py"]
