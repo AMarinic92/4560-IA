@@ -20,7 +20,7 @@ Our AI-powered Accessibility Checker is aimed at streamlining the process of ens
 
 ## License
 
-[AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)
+?? [AGPLv3](https://choosealicense.com/licenses/agpl-3.0/) ?? 
 
 ## Resources
 
