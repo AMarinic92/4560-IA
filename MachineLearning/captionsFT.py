@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-from transformers import pipeline, AutoProcessor, TFAutoModel, AutoModelForSeq2SeqLM, TFAutoModelForSeq2SeqLM, AutoTokenizer, DataCollatorWithPadding, TrainingArguments, Trainer
+from transformers import pipeline, AutoProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, DataCollatorWithPadding, TrainingArguments, Trainer
 from datasets import load_dataset, load_metric
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
@@ -22,8 +22,8 @@ loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
 USER_AGENT = get_datasets_user_agent()
 
 
-## Following 2 functions load get the images, as opposed to only using load_dataset() which would only get the image urls
-def fetch_single_image(image_url, timeout=60, retries=0):
+
+def fetch_single_image(image_url, timeout=None, retries=0):
     for _ in range(retries + 1):
         try:
             request = urllib.request.Request(
@@ -39,7 +39,7 @@ def fetch_single_image(image_url, timeout=60, retries=0):
     return image
 
 
-def fetch_images(batch, num_threads, timeout=60, retries=0):
+def fetch_images(batch, num_threads, timeout=None, retries=0):
     fetch_single_image_with_args = partial(fetch_single_image, timeout=timeout, retries=retries)
     with ThreadPoolExecutor(max_workers=num_threads) as executor:
         batch["image"] = list(executor.map(fetch_single_image_with_args, batch["image_url"]))
@@ -50,15 +50,15 @@ num_threads = 20
 dset = load_dataset("conceptual_captions", trust_remote_code=True)
 dset = dset.map(fetch_images, batched=True, batch_size=100, fn_kwargs={"num_threads": num_threads})
 
-## load model
+# load model
 
 checkpoint = "Salesforce/blip-image-captioning-base"
 pipe = pipeline("image-to-text", model = checkpoint)
-tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+# tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 processor = AutoProcessor.from_pretrained("Salesforce/blip-image-captioning-base")
-# model = TFAutoModelForSeq2SeqLM.from_pretrained(checkpoint)
-# model = AutoModelForSeq2SeqLM.from_pretrained(checkpoint)
-model = TFAutoModel.from_pretrained(checkpoint)
+
+# model = TFAutoModel.from_pretrained(checkpoint)
+model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
 
 ## 
 
@@ -93,17 +93,17 @@ trainer.train()
 
 
 
-# dataset = 'conceptual_captions'
-# raw_datasets = load_dataset(dataset)
+dataset = 'conceptual_captions'
+raw_datasets = load_dataset(dataset)
 
-# tokenizer = AutoTokenizer.from_pretrained("Salesforce/blip-image-captioning-base")
+tokenizer = AutoTokenizer.from_pretrained("Salesforce/blip-image-captioning-base")
 
-# def tokenize_function(example):
-#   return tokenizer(
-#       example["image_url"], example["caption"],truncation=True, max_length = 1024
-#   )
+def tokenize_function(example):
+  return tokenizer(
+      example["image_url"], example["caption"],truncation=True, max_length = 1024
+  )
 
-# tokenized_datasets = raw_datasets.map(tokenize_function)
+tokenized_datasets = raw_datasets.map(tokenize_function)
 
 
 
