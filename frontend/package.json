@@ -12,13 +12,13 @@
   "dependencies": {
     "@formkit/auto-animate": "^0.8.1",
     "@types/chrome": "^0.0.260",
-    "axios": "^1.6.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "socket.io-client": "^4.7.4"
   },
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.0.0-beta.23",
+    "@tailwindcss/typography": "^0.5.12",
     "@types/react": "^18.2.43",
     "@types/react-dom": "^18.2.17",
     "@typescript-eslint/eslint-plugin": "^6.14.0",

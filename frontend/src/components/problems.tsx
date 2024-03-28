@@ -24,6 +24,7 @@ const Problems = ({ problems }: { problems: Problem[] }) => {
                         (problem: Problem) => {
                             return (
                                 <Card
+                                    key={problem.id}
                                     id={problem.id}
                                     imageUrl={problem.imageUrl}
                                     type={problem.type}

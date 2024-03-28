@@ -5,6 +5,7 @@ import Problems from "./components/problems"
 import { Problem } from "./interfaces/objects";
 import useSocket from "./hook/useSocket";
 import { Socket } from "socket.io-client";
+import InfoModal from "./components/info_modal";
 
 
 function App() {
@@ -92,7 +93,7 @@ function App() {
         ) : ""
       }
 
-
+      <InfoModal />
     </div>
   )
 }
