@@ -3,7 +3,8 @@ COPY .. /opt/app/
 WORKDIR /opt/app
 RUN pip uninstall -y tensorflow estimator keras
 RUN pip install -U tensorflow_text tensorflow tensorflow_datasets
-RUN pip install transformers
+RUN pip install tf-keras
+RUN pip install transformers datasets
 RUN pip install pillow
 RUN pip install einops
-CMD ["python","./MLmain.py"]
+CMD ["python","./captionsFT.py"]
