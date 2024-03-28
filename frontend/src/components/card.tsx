@@ -6,14 +6,10 @@
 import { Problem } from "../interfaces/objects";
 import { showImage } from "../utils/chrome";
 
-const Card = (props:Problem) => {
-    return ( 
-        <div className="flex flex-row justify-center  mb-5"
-        onClick={
-            ()=> showImage(props.imageUrl)
-        }
-        
-        >
+const Card = (props: Problem) => {
+    return (
+        <div className="flex flex-row  mb-5">
+
             <img
                 src={props.imageUrl}
                 alt=""
@@ -21,24 +17,26 @@ const Card = (props:Problem) => {
                 height={90}
                 style={
                     {
-                        objectFit:"contain"
+                        objectFit: "contain"
                     }
-                }
+                }                                               
             >
             </img>
-            <div className="flex flex-col prose">
-                    <div className="flex flex-row">
-                         <b>Type: </b> 
-                         <p>{props.type}</p>
-                    </div>
-                    <p className="flex flex-row"> 
-                        <b>Suggestion:</b>
-                        <p>{props.suggestion}</p>
-                     </p>
+
+            <div className="flex flex-col prose-sm">
+                <div className="flex flex-row justify-between">
+                    <p className="font-bold">Type: </p>
+                    <p>{props.type}</p>
+                </div>
+                <div className="flex flex-row justify-between">
+                    <p className="font-bold">Suggestion: </p>
+                    <p> {props.suggestion}</p>
+                </div>
+
             </div>
 
         </div>
-     );
+    );
 }
- 
+
 export default Card;
