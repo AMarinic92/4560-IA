@@ -46,7 +46,7 @@ const Header = ({ changeIsReady }: { changeIsReady: ChangeIsReady }) => {
                     className="btn btn-info"
                     onClick={
                         ()=>{
-                            const modal = document?.getElementById('info_modal') ;
+                            const modal = document?.getElementById('info_modal') as HTMLDialogElement;
                             modal?.showModal();
                         }
                     }
