@@ -1,7 +1,4 @@
 
-function getImageID(src:string){
-    return src
-}
 
 
 

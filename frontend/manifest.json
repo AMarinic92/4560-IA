@@ -3,9 +3,6 @@
   "name": "Accessibility checker",
   "version": "1.0.0",
   "background": {
-    "scripts": [
-      "background.js"
-    ],
     "persistent": false
   },
   "side_panel": {
@@ -13,7 +10,8 @@
   },
   "permissions": [
     "sidePanel",
-    "scripting"
+    "scripting",
+    "background"
   ],
   "host_permissions": [
     "http://*/*",
