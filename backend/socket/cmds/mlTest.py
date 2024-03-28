@@ -1,11 +1,23 @@
+from read import Read
+from htmlparser import HtmlParser
+
+html = Read().read_web_page("https://en.wikipedia.org/wiki/Royal_Maundy")
+parser = HtmlParser(html)
+links = parser.get_links()
+links_with_words = parser.get_links_with_words(["Good Friday", "Developers", "Click here", "Help"])
+print(links_with_words)
+
+
+
+""" 
 import imageCaptioning
 import tensorflow as tf
 from transformers import AutoTokenizer, TFAutoModelForTokenClassification, pipeline
 
-
 pipe = pipeline("image-classification", model="cafeai/cafe_aesthetic")
 result = pipe("https://static.wikia.nocookie.net/warhammer40k/images/5/55/AnkhoftheTriarch9thEdition.jpg/revision/latest/scale-to-width-down/1000?cb=20200925173557")
 print(result)
+ """
 '''
 tokenizer = AutoTokenizer.from_pretrained("dslim/bert-base-NER")
 model = TFAutoModelForTokenClassification.from_pretrained("dslim/bert-base-NER")
