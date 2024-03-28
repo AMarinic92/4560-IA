@@ -48,6 +48,9 @@ checkpoint = 'Salesforce/blip-image-captioning-large'
 # dset = load_dataset("conceptual_captions", trust_remote_code=True)
 # dset = dset.map(fetch_images, batched=True, batch_size=100, fn_kwargs={"num_threads": num_threads})
 dset = load_dataset("imagefolder", data_dir="./trainTest", split="train")
+tf_train_dataset = dset["train"].to_tf_dataset(
+    columns=[""]
+)
 
 
 # load model
