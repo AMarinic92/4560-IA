@@ -1,8 +1,15 @@
+/**
+ * @fileoverview Card displays accessability issues + suggestions on the frontend
+ */
+
+
 import { Problem } from "../interfaces/objects";
+import { showImage } from "../utils/chrome";
 
 const Card = (props: Problem) => {
     return (
         <div className="flex flex-row  mb-5">
+
             <img
                 src={props.imageUrl}
                 alt=""
@@ -15,6 +22,7 @@ const Card = (props: Problem) => {
                 }                                               
             >
             </img>
+
             <div className="flex flex-col prose-sm">
                 <div className="flex flex-row justify-between">
                     <p className="font-bold">Type: </p>
@@ -24,6 +32,7 @@ const Card = (props: Problem) => {
                     <p className="font-bold">Suggestion: </p>
                     <p> {props.suggestion}</p>
                 </div>
+
             </div>
 
         </div>
