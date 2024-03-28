@@ -1,4 +1,6 @@
-import sys 
+import sys
+
+from cache.cache import cache_response 
 sys.path.insert(0,'./cmds')
 from aiohttp import web
 import socketio
@@ -19,6 +21,7 @@ async def another_event(sid, json):
     web_url = json.get("website",-1)
     response = await image_analysis(web_url)
     print(response)
+    cache_response(response)
     await sio.emit("reply",response ,room = sid)
 
 

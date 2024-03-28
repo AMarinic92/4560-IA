@@ -18,3 +18,15 @@ class Response(Model):
 def create_cache():
     db.connect()
     db.create_tables([Response])
+
+
+def cache_response(response):
+    success = False
+    responseList = response["response"]
+    for img in responseList:
+        cachedResponse = Response.create(**img)
+        cachedResponse.save()
+        success = (cachedResponse == 1)
+    return success
+
+
