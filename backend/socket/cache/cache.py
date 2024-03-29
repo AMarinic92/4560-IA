@@ -30,22 +30,31 @@ class Response(Model):
         database = db # This model uses the "people.db" database.
 
 
+
+
 def create_cache():
     db.connect()
+   # Response.add_index(SQL('CREATE INDEX idx_url ON Response(url)'));
     db.create_tables([Response, Time])
+    Response.add_index(SQL('CREATE INDEX idx_url ON Response(url)'));
+   
 
 
 def get_cache_time(url):
-    query = Time.select(Time).where(Time.url == url).get()
-    return query.created
+    try:
+        query = Time.select(Time).where(Time.url == url).get()
+        return query.created
+    except:
+        return None
 
 def is_invalidate(cache_created):
     result = False
-    time_created = float(cache_created)
-    curr_time = datetime.datetime.timestamp(datetime.datetime.utcnow())
-    time = curr_time - time_created
-    if time > VALID_CACHE_TIME:
-        result = True
+    if cache_created:
+        time_created = float(cache_created)
+        curr_time = datetime.datetime.timestamp(datetime.datetime.utcnow())
+        time = curr_time - time_created
+        if time > VALID_CACHE_TIME:
+            result = True
   #  print(result)
     return result
 
