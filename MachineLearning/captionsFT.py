@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 from transformers import pipeline, AutoProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TrainingArguments, Trainer, DataCollatorWithPadding
-from datasets import load_dataset, load_metric, get_dataset_split_names
+from datasets import load_dataset, load_metric, get_dataset_split_names, Image
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 import io
@@ -58,18 +58,17 @@ tokenized_dataset = dset.map(tokenize_function, batched=True)
 
 print(tokenized_dataset[0])
 
+
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer,return_tensors="tf")
 
 tf_dataset = tokenized_dataset.to_tf_dataset(
-    columns=["image", "caption","input_ids", "attention_mask"],
+    columns=["input_ids", "attention_mask"],
     batch_size=2,
     collate_fn=data_collator,
     shuffle=True
 )
 
-# tf_train_dataset = dset["train"].to_tf_dataset(
-#     columns=["images", "caption"]
-# )
+print(tf_dataset)
 
 
 # # load model
@@ -78,43 +77,22 @@ tf_dataset = tokenized_dataset.to_tf_dataset(
 # # tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 # processor = AutoProcessor.from_pretrained(checkpoint)
 
-# # model = TFAutoModel.from_pretrained(checkpoint)
-# model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
+# model = TFAutoModel.from_pretrained(checkpoint)
+model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
 
 # ## 
 
-# loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-# model.compile(optimizer='adam', loss=loss)
+loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+model.compile(optimizer='adam', loss=loss)
 
-# model.fit(
-#     tf_train_dataset,
-#     validation_data=tf_validation_dataset,
-#     epochs=3
-#     )
+model.fit(
+    tf_dataset,
+    validation_data=None,
+    epochs=3
+    )
 
-# training_args = TrainingArguments("test-trainer", evaluation_strategy="epoch")
 
-# def compute_metrics(eval_preds):
-#     logits, labels = eval_preds
-#     predictions = np.argmax(logits, axis=-1)
-#     return metric.compute(predictions=predictions, references=predictions.label_ids)
 
-# trainer = Trainer(
-#     model,
-#     training_args,
-#     train_dataset= dset["train"],
-#     eval_dataset= dset["validation"],
-#     compute_metrics=compute_metrics
-# )
-
-# predictions = trainer.predict()
-# print(predictions.predictions.shape, predictions.label_ids.shape)
-
-# metric = load_metric("conceptual_captions")
-# preds = np.argmax(predictions.predictions, axis=-1)
-# metric.compute(predictions=preds, references=predictions.label_ids)
-
-# trainer.train()
 
 
 
