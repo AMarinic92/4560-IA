@@ -9,7 +9,14 @@ class Response(Model):
     message = CharField()
     suggestion  = CharField()
     url = CharField()
-    
+
+    class Meta:
+        primary_key = CompositeKey('id', 'url')
+        database = db # This model uses the "people.db" database.
+
+class Time(Model):
+    created = CharField()
+    url = CharField(primary_key=True)
 
     class Meta:
         primary_key = CompositeKey('id', 'url')
@@ -25,6 +32,7 @@ def create_cache():
 def cache_response(response ,url):
     success = False
     responseList = response["response"]
+    Time.create(url=url,time)
     for img in responseList:
         cachedResponse = Response.create(url=url ,**img)
         cachedResponse.save()
