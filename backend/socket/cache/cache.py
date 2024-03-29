@@ -8,9 +8,11 @@ class Response(Model):
     type = CharField()
     message = CharField()
     suggestion  = CharField()
+    url = CharField()
     
 
     class Meta:
+        primary_key = CompositeKey('id', 'url')
         database = db # This model uses the "people.db" database.
 
 
@@ -20,11 +22,11 @@ def create_cache():
     db.create_tables([Response])
 
 
-def cache_response(response):
+def cache_response(response ,url):
     success = False
     responseList = response["response"]
     for img in responseList:
-        cachedResponse = Response.create(**img)
+        cachedResponse = Response.create(url=url ,**img)
         cachedResponse.save()
         success = (cachedResponse == 1)
     return success
