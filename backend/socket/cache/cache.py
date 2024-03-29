@@ -40,14 +40,19 @@ def get_cache_time(url):
     return query.created
 
 def is_invalidate(cache_created):
-    result = false
+    result = False
     time_created = float(cache_created)
     curr_time = datetime.datetime.timestamp(datetime.datetime.utcnow())
     time = curr_time - time_created
     if time > VALID_CACHE_TIME:
-        result = true
+        result = True
   #  print(result)
     return result
+
+def delete_response(url):
+    query1 = Response.delete().where(Response.url == url).execute()
+    query2 = Time.delete().where(Time.url == url).execute()
+
 
 def cache_response(response ,url):
     success = False
@@ -67,16 +72,19 @@ def get_cached_response(url):
     cache_created = get_cache_time(url)
     invalidate = is_invalidate(cache_created)
     if invalidate:
-        return None
- #   print(f"cache created {cache_created}")
-    query = Response.select(Response).where(Response.url == url)
-    for item in query:
-        obj ={"id":item.id ,"imageUrl":item.imageUrl,"type":item.type,"message":item.message,"suggestion":item.message}
-        list.append(obj)
-    if(len(list) == 0):
+        print("Delete cache")
+        delete_response(url)
         result = None
     else:
-        result["response"] = list
+ #   print(f"cache created {cache_created}")
+        query = Response.select(Response).where(Response.url == url)
+        for item in query:
+            obj ={"id":item.id ,"imageUrl":item.imageUrl,"type":item.type,"message":item.message,"suggestion":item.message}
+            list.append(obj)
+        if(len(list) == 0):
+            result = None
+        else:
+            result["response"] = list
     print(result)
     print("done")
     return result
