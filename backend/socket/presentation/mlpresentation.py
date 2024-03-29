@@ -28,6 +28,4 @@ async def image_analysis(web_url):
             #Does not parse correctly and I get an error I am not sure why
             js_obj = js.loads(result)
             response.get("response").append(js_obj)
-
-    print(response)
     return response

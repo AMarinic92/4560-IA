@@ -2,3 +2,5 @@
 .env
 /cmds/__pycache__
 /presentation/__pycache__
+/cache/responses.db
+/cache/__pycache__

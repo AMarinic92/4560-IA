@@ -1,4 +1,6 @@
-import sys 
+import sys
+
+from cache.cache import cache_response , create_cache , get_cached_response
 sys.path.insert(0,'./cmds')
 from aiohttp import web
 import socketio
@@ -17,8 +19,14 @@ async def connect(sid, environ, auth):
 @sio.on('parse')
 async def another_event(sid, json):
     web_url = json.get("website",-1)
+    response_db = get_cached_response(web_url)
+    if response_db:
+        await sio.emit("reply",response_db ,room = sid)
+        return
     response = await image_analysis(web_url)
-    print(response)
+  # response["response"].append({"url":web_url})
+  #  print(response)
+    cache_response(response ,web_url)
     await sio.emit("reply",response ,room = sid)
 
 
@@ -27,4 +35,5 @@ def disconnect(sid):
     print('disconnect ', sid)
 
 if __name__=='__main__':
+    create_cache()
     web.run_app(app, host='0.0.0.0', port=5000)
