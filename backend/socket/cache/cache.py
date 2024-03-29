@@ -32,3 +32,20 @@ def cache_response(response ,url):
     return success
 
 
+def get_cached_response(url):
+    result = {}
+    list = []
+    query = Response.select(Response).where(Response.url == url)
+    for item in query:
+        obj ={"id":item.id ,"imageUrl":item.imageUrl,"type":item.type,"message":item.message,"suggestion":item.message}
+        list.append(obj)
+    if(len(list) == 0):
+        result = None
+    else:
+        result["response"] = list
+    print(result)
+    print("done")
+    return result
+        
+
+
