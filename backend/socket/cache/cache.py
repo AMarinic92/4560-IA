@@ -1,6 +1,21 @@
 from peewee import *
+import datetime
+
+
+VALID_CACHE_TIME = 600  # seconds cache is valid for
+
 
 db = SqliteDatabase('cache/responses.db')
+
+class Time(Model):
+    created = CharField()
+    url = CharField(primary_key=True)
+
+    class Meta:
+        database = db # This model uses the "people.db" database.
+
+
+
 
 class Response(Model):
     id = CharField()
@@ -14,25 +29,31 @@ class Response(Model):
         primary_key = CompositeKey('id', 'url')
         database = db # This model uses the "people.db" database.
 
-class Time(Model):
-    created = CharField()
-    url = CharField(primary_key=True)
-
-    class Meta:
-        primary_key = CompositeKey('id', 'url')
-        database = db # This model uses the "people.db" database.
-
-
 
 def create_cache():
     db.connect()
-    db.create_tables([Response])
+    db.create_tables([Response, Time])
 
+
+def get_cache_time(url):
+    query = Time.select(Time).where(Time.url == url).get()
+    return query.created
+
+def is_invalidate(cache_created):
+    result = false
+    time_created = float(cache_created)
+    curr_time = datetime.datetime.timestamp(datetime.datetime.utcnow())
+    time = curr_time - time_created
+    if time > VALID_CACHE_TIME:
+        result = true
+  #  print(result)
+    return result
 
 def cache_response(response ,url):
     success = False
     responseList = response["response"]
-    Time.create(url=url,time)
+    curr_time = str(datetime.datetime.timestamp(datetime.datetime.utcnow()))
+    Time.create(url=url ,created =curr_time)
     for img in responseList:
         cachedResponse = Response.create(url=url ,**img)
         cachedResponse.save()
@@ -43,6 +64,11 @@ def cache_response(response ,url):
 def get_cached_response(url):
     result = {}
     list = []
+    cache_created = get_cache_time(url)
+    invalidate = is_invalidate(cache_created)
+    if invalidate:
+        return None
+ #   print(f"cache created {cache_created}")
     query = Response.select(Response).where(Response.url == url)
     for item in query:
         obj ={"id":item.id ,"imageUrl":item.imageUrl,"type":item.type,"message":item.message,"suggestion":item.message}
