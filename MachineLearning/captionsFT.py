@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
-from transformers import pipeline, AutoProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TrainingArguments, Trainer
-from datasets import load_dataset, load_metric
+from transformers import pipeline, AutoProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TrainingArguments, Trainer, DataCollatorWithPadding
+from datasets import load_dataset, load_metric, get_dataset_split_names
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 import io
@@ -47,55 +47,74 @@ checkpoint = 'Salesforce/blip-image-captioning-large'
 # num_threads = 20
 # dset = load_dataset("conceptual_captions", trust_remote_code=True)
 # dset = dset.map(fetch_images, batched=True, batch_size=100, fn_kwargs={"num_threads": num_threads})
+tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+
 dset = load_dataset("imagefolder", data_dir="./trainTest", split="train")
-tf_train_dataset = dset["train"].to_tf_dataset(
-    columns=[""]
+
+def tokenize_function(example):
+    return tokenizer(example["caption"])
+
+tokenized_dataset = dset.map(tokenize_function, batched=True)
+
+print(tokenized_dataset[0])
+
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer,return_tensors="tf")
+
+tf_dataset = tokenized_dataset.to_tf_dataset(
+    columns=["image", "caption","input_ids", "attention_mask"],
+    batch_size=2,
+    collate_fn=data_collator,
+    shuffle=True
 )
 
+# tf_train_dataset = dset["train"].to_tf_dataset(
+#     columns=["images", "caption"]
+# )
 
-# load model
 
-pipe = pipeline("image-to-text", model = checkpoint)
-# tokenizer = AutoTokenizer.from_pretrained(checkpoint)
-processor = AutoProcessor.from_pretrained(checkpoint)
+# # load model
 
-# model = TFAutoModel.from_pretrained(checkpoint)
-model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
+# pipe = pipeline("image-to-text", model = checkpoint)
+# # tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+# processor = AutoProcessor.from_pretrained(checkpoint)
 
-## 
+# # model = TFAutoModel.from_pretrained(checkpoint)
+# model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
 
-loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-model.compile(optimizer='adam', loss=loss)
+# ## 
 
-model.fit(
-    tf_train_dataset,
-    validation_data=tf_validation_dataset,
-    epochs=3
-    )
+# loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+# model.compile(optimizer='adam', loss=loss)
 
-training_args = TrainingArguments("test-trainer", evaluation_strategy="epoch")
+# model.fit(
+#     tf_train_dataset,
+#     validation_data=tf_validation_dataset,
+#     epochs=3
+#     )
 
-def compute_metrics(eval_preds):
-    logits, labels = eval_preds
-    predictions = np.argmax(logits, axis=-1)
-    return metric.compute(predictions=predictions, references=predictions.label_ids)
+# training_args = TrainingArguments("test-trainer", evaluation_strategy="epoch")
 
-trainer = Trainer(
-    model,
-    training_args,
-    train_dataset= dset["train"],
-    eval_dataset= dset["validation"],
-    compute_metrics=compute_metrics
-)
+# def compute_metrics(eval_preds):
+#     logits, labels = eval_preds
+#     predictions = np.argmax(logits, axis=-1)
+#     return metric.compute(predictions=predictions, references=predictions.label_ids)
 
-predictions = trainer.predict()
-print(predictions.predictions.shape, predictions.label_ids.shape)
+# trainer = Trainer(
+#     model,
+#     training_args,
+#     train_dataset= dset["train"],
+#     eval_dataset= dset["validation"],
+#     compute_metrics=compute_metrics
+# )
 
-metric = load_metric("conceptual_captions")
-preds = np.argmax(predictions.predictions, axis=-1)
-metric.compute(predictions=preds, references=predictions.label_ids)
+# predictions = trainer.predict()
+# print(predictions.predictions.shape, predictions.label_ids.shape)
 
-trainer.train()
+# metric = load_metric("conceptual_captions")
+# preds = np.argmax(predictions.predictions, axis=-1)
+# metric.compute(predictions=preds, references=predictions.label_ids)
+
+# trainer.train()
 
 
 
@@ -107,10 +126,5 @@ trainer.train()
 
 # tokenizer = AutoTokenizer.from_pretrained("Salesforce/blip-image-captioning-base")
 
-# def tokenize_function(example):
-#   return tokenizer(
-#       example["image_url"], example["caption"],truncation=True, max_length = 1024
-#   )
 
-# tokenized_datasets = raw_datasets.map(tokenize_function)
 
