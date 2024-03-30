@@ -49,12 +49,18 @@ checkpoint = 'Salesforce/blip-image-captioning-large'
 # dset = dset.map(fetch_images, batched=True, batch_size=100, fn_kwargs={"num_threads": num_threads})
 tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 
-dset = load_dataset("imagefolder", data_dir="./trainTest", split="train")
+dset = load_dataset("imagefolder", data_dir="./trainTest", split="train", drop_labels=False)
 
 def tokenize_function(example):
     return tokenizer(example["caption"])
 
+def transforms(examples):
+    examples["pixel_values"] = [image.convert("RGB").resize((100,100)) for image in examples["image"]]
+    return examples
+
 tokenized_dataset = dset.map(tokenize_function, batched=True)
+
+tokenized_dataset = tokenized_dataset.map(transforms, remove_columns=["image"], batched=True)
 
 print(tokenized_dataset[0])
 
@@ -62,7 +68,8 @@ print(tokenized_dataset[0])
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer,return_tensors="tf")
 
 tf_dataset = tokenized_dataset.to_tf_dataset(
-    columns=["input_ids", "attention_mask"],
+    columns=['pixel_values', 'input_ids', 'attention_mask'],
+    label_cols='label',
     batch_size=2,
     collate_fn=data_collator,
     shuffle=True
@@ -77,8 +84,8 @@ print(tf_dataset)
 # # tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 # processor = AutoProcessor.from_pretrained(checkpoint)
 
-# model = TFAutoModel.from_pretrained(checkpoint)
-model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
+model = TFAutoModel.from_pretrained(checkpoint)
+#model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
 
 # ## 
 
