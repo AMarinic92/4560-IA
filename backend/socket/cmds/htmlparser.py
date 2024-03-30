@@ -5,19 +5,23 @@ class HtmlParser:
     def __init__(self,html) :
         self.soup = BeautifulSoup(html, 'html.parser')
 
-
+    # Parse headings 
     def get_page_words(self):
           return self.soup.find_all(["p","h1","h2","h3"])
 
+    # Parse for images
     def get_image_tags(self):
          return self.soup.find_all("img")
     
+    # Parse for images withough alt-text
     def get_missing_alt_text(self):
          return self.soup.find_all("img", attrs={"alt": False})
 
+    # parse for images with blank alt-text field
     def get_blank_alt_text(self):
          return self.soup.find_all("img", attrs={"alt": ""})
     
+    # Provide an output text for images on the page
     def check_alt_text(self):
          out = []
          image_tags = self.get_image_tags()
