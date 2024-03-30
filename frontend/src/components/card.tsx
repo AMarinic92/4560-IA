@@ -30,12 +30,12 @@ const Card = (props: Problem) => {
             </img>
 
             <div className="flex flex-col prose-sm">
-                <div className="flex flex-row justify-between">
-                    <p className="font-bold">Type: </p>
+                <div className="flex flex-row ">
+                    <p className="font-bold mr-1">Type: </p>
                     <p>{props.type}</p>
                 </div>
-                <div className="flex flex-row justify-between">
-                    <p className="font-bold">Suggestion: </p>
+                <div className="flex flex-row ">
+                    <p className="font-bold mr-1">Suggestion: </p>
                     <p> {props.suggestion}</p>
                 </div>
 
