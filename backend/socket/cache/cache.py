@@ -88,7 +88,7 @@ def get_cached_response(url):
  #   print(f"cache created {cache_created}")
         query = Response.select(Response).where(Response.url == url)
         for item in query:
-            obj ={"id":item.id ,"imageUrl":item.imageUrl,"type":item.type,"message":item.message,"suggestion":item.message}
+            obj ={"id":item.id ,"imageUrl":item.imageUrl,"type":item.type,"message":item.message,"suggestion":item.suggestion}
             list.append(obj)
         if(len(list) == 0):
             result = None
