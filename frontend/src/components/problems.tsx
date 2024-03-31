@@ -16,7 +16,7 @@ const Problems = ({ problems }: { problems: Problem[] }) => {
         <div tabIndex={0} className="collapse collapse-arrow border border-base-300 bg-primary mb-2">
             <input type="checkbox" />
             <div className="collapse-title text-xl font-medium">
-                Problems and Solutions
+                Image Alt Text Analysis
             </div>
             <div className="collapse-content">
                 {
