@@ -20,7 +20,8 @@ function App() {
   const [msgFailed, setMsgFailed] = useState<boolean>(false)
 
   const resetState = () => {
-    setProblems([])
+    setProblems([]);
+    setLoading(false);
   }
 
 
