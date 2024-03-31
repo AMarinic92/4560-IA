@@ -22,6 +22,7 @@ function App() {
   const resetState = () => {
     setProblems([]);
     setLoading(false);
+    setIsReady(false);
   }
 
 
