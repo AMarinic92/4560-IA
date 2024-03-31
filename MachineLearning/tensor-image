@@ -7,4 +7,4 @@ RUN pip install tf-keras
 RUN pip install transformers datasets
 RUN pip install pillow
 RUN pip install einops
-CMD ["python","./captionsFT.py"]
+CMD ["python","./captionsFT-test.py"]

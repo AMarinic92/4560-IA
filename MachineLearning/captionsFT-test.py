@@ -1,6 +1,6 @@
 import tensorflow as tf
 import numpy as np
-from transformers import pipeline, AutoProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TrainingArguments, Trainer, DataCollatorWithPadding
+from transformers import pipeline, BlipProcessor, BlipImageProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TFBertTokenizer, TrainingArguments, Trainer, DataCollatorWithPadding
 from datasets import load_dataset, load_metric, get_dataset_split_names, Image
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
@@ -47,8 +47,10 @@ checkpoint = 'Salesforce/blip-image-captioning-large'
 # num_threads = 20
 # dset = load_dataset("conceptual_captions", trust_remote_code=True)
 # dset = dset.map(fetch_images, batched=True, batch_size=100, fn_kwargs={"num_threads": num_threads})
-
-tokenizer = AutoTokenizer.from_pretrained(checkpoint)
+# tokenizer = TFAutoTokenizer.from_pretrained(checkpoint)
+tokenizer = TFBertTokenizer.from_pretrained(checkpoint)
+# processor = BlipImageProcessor.from_pretrained(checkpoint, return_tensors="tf")
+processor = BlipProcessor.from_pretrained(checkpoint)
 
 dset = load_dataset("imagefolder", data_dir="./trainTest", split="train", drop_labels=False)
 
@@ -59,24 +61,31 @@ def transforms(examples):
     examples["pixel_values"] = [image.convert("RGB").resize((100,100)) for image in examples["image"]]
     return examples
 
-tokenized_dataset = dset.map(tokenize_function, batched=True)
+def process_function(example):
+    return processor(example["image"], example["caption"])
 
-tokenized_dataset = tokenized_dataset.map(transforms, remove_columns=["image"], batched=True)
+# tokenized_dataset = dset.map(tokenize_function, batched=True)
 
-print(tokenized_dataset[0])
+tokenized_dataset = dset.map(process_function, batched=True)
+
+# tokenized_dataset = tokenized_dataset.map(transforms, remove_columns=["image"], batched=True)
+
+print(tokenized_dataset[0].keys())
+# print(tokenized_dataset[0]["pixel_values"])
 
 
-data_collator = DataCollatorWithPadding(tokenizer=tokenizer,return_tensors="tf")
+
+# data_collator = DataCollatorWithPadding(,return_tensors="tf")
 
 tf_dataset = tokenized_dataset.to_tf_dataset(
     columns=['pixel_values', 'input_ids', 'attention_mask'],
     label_cols='label',
     batch_size=2,
-    collate_fn=data_collator,
+    # collate_fn=data_collator,
     shuffle=True
 )
 
-print(tf_dataset)
+# print(tf_dataset)
 
 
 # # load model
@@ -85,8 +94,8 @@ print(tf_dataset)
 # # tokenizer = AutoTokenizer.from_pretrained(checkpoint)
 # processor = AutoProcessor.from_pretrained(checkpoint)
 
-model = TFAutoModel.from_pretrained(checkpoint)
-#model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
+# model = TFAutoModel.from_pretrained(checkpoint)
+model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
 
 # ## 
 
@@ -98,3 +107,19 @@ model.fit(
     validation_data=None,
     epochs=3
     )
+
+
+
+
+
+
+
+
+
+# dataset = 'conceptual_captions'
+# raw_datasets = load_dataset(dataset)
+
+# tokenizer = AutoTokenizer.from_pretrained("Salesforce/blip-image-captioning-base")
+
+
+
