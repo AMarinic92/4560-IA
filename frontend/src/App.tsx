@@ -19,16 +19,20 @@ function App() {
   const [parent, enableAnimations] = useAutoAnimate();
   const [msgFailed, setMsgFailed] = useState<boolean>(false)
 
+  const resetState = () => {
+    setProblems([])
+  }
+
 
   const sendMessage = (url: string) => {
     try {
-      console.log("sending msg")
+      console.log("sending msg");
       setLoading(true);
-      socket?.emit("parse", { "website": url })
+      socket?.emit("parse", { "website": url });
       // setProblems()
     } catch (error) {
-      console.log(error)
-      setMsgFailed(true)
+      console.log(error);
+      setMsgFailed(true);
     }
   }
 
@@ -65,15 +69,19 @@ function App() {
 
   return (
     <div ref={parent} className=" ">
-      {socket ? (<Header
-        changeIsReady={
+      {socket ? (
+        <Header
 
-          async (val: boolean, url: string) => {
-            sendMessage(url)
-            console.log(val)
+          resetState={resetState}
+          changeIsReady={
+
+            async (val: boolean, url: string) => {
+              sendMessage(url)
+              console.log(val)
+            }
           }
-        }
-      />) : ""}
+        />
+      ) : ""}
 
       {msgFailed ? "message failed to send" : ""}
 

@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { getUrl } from "../utils/chrome";
-import { ChangeIsReady } from "../interfaces/functions";
+import { ChangeIsReady, ResetState } from "../interfaces/functions";
 import { checker } from "../utils/checker"
 
 
-const Header = ({ changeIsReady }: { changeIsReady: ChangeIsReady }) => {
+const Header = ({ changeIsReady, resetState }: { changeIsReady: ChangeIsReady, resetState: ResetState }) => {
     const [init, setInit] = useState<boolean>(false)
     const [website, setWebsite] = useState<string | null>(null)
 
@@ -63,7 +63,11 @@ const Header = ({ changeIsReady }: { changeIsReady: ChangeIsReady }) => {
                 <button
                     className="btn btn-accent"
                     onClick={
-                        () => setInit(false)
+                        () => {
+                            setInit(false);
+                            setWebsite(null);
+                            resetState();
+                        }
                     }
                     disabled={!init}
                 >
