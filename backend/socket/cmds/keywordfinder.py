@@ -4,7 +4,7 @@ from htmlparser import HtmlParser
 from read import Read
 
 
-class KeyWorderFinder:
+class KeyWordFinder:
     def __init__(self,url):
         self.html = Read().read_web_page(url)
         self.parser = HtmlParser(self.html)
