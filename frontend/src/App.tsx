@@ -85,7 +85,7 @@ function App() {
       }
 
       {
-        isReady ? (<div className="px-2">
+        isReady ? (<div className="px-2 mt-5">
 
           <Problems problems={problems} />
 
