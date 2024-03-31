@@ -10,7 +10,7 @@ const Header = ({ changeIsReady }: { changeIsReady: ChangeIsReady }) => {
 
 
     return (
-        <div className="flex flex-col justify-start ">
+        <div className="flex flex-col justify-start px-5 pt-5">
             <h1 className="mb-3 text-xl font-bold">Accessability Checker</h1>
             <div className="mb-3">
                 <a

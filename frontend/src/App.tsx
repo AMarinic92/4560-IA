@@ -63,7 +63,7 @@ function App() {
   )
 
   return (
-    <div ref={parent} className="container h-96 w-full  px-5 py-5">
+    <div ref={parent} className=" ">
       {socket ? (<Header
         changeIsReady={
 
@@ -85,7 +85,7 @@ function App() {
       }
 
       {
-        isReady ? (<div className="flex flex-col mt-5 ">
+        isReady ? (<div className="px-2">
 
           <Problems problems={problems} />
 
