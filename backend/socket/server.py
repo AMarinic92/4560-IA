@@ -6,6 +6,7 @@ from aiohttp import web
 import socketio
 from accessML import accessMl
 from presentation.mlpresentation import image_analysis
+from presentation.mlpresentation import link_analysis
 
 sio = socketio.AsyncServer(async_mode='aiohttp',cors_allowed_origins='*', ping_timeout=300)
 app = web.Application()
@@ -24,6 +25,7 @@ async def another_event(sid, json):
         await sio.emit("reply",response_db ,room = sid)
         return
     response = await image_analysis(web_url)
+    response = await response["response"].append(link_analysis(web_url))
   # response["response"].append({"url":web_url})
   #  print(response)
     cache_response(response ,web_url)

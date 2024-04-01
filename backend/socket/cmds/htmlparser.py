@@ -9,6 +9,7 @@ class HtmlParser:
     def get_links(self):
          return self.soup.find_all(["a"])
     
+    #checks all the links in the web page for certain words with an "in" check
     def get_links_with_words(self, words):
          out = []
          links = self.get_links()
@@ -16,9 +17,8 @@ class HtmlParser:
               link_word = link.get_text()
               #print(link_word)
               for word in words:
-                   if (str(word) == str(link_word)):
-                        print(word)
-                        out.append({"id":self.id_count,"text":link.get_text(),"type":"Link has non-descriptive text","href":link["href"]})
+                   if (str(word).lower() in str(link_word).lower()):
+                        out.append({"id":self.id_count,"linkUrl":link["href"],"type":"Link has non-descriptive text","suggestion":""})
                         self.id_count += 1
          return out
 

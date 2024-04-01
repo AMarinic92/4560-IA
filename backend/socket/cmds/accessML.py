@@ -6,6 +6,7 @@ load_dotenv()
 
 
 USER = os.getenv("UM_USERNAME")
+bad_link_words = ["click me", "click here", "more"]
 
 import subprocess
 class accessMl:
@@ -14,6 +15,14 @@ class accessMl:
         self.html = Read().read_web_page(self.web)
         self.parser = HtmlParser(self.html)
     
+    def get_all(self):
+        out = {"response":[]}
+        test = self.get_captions
+        if(len)
+
+    def get_bad_links(self):
+        return self.parser.get_links_with_words(bad_link_words)
+
     def get_missing_alt(self):
             out = self.parser.check_alt_text()
             return out

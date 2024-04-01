@@ -24,8 +24,7 @@ async def image_analysis(web_url):
                 result = result[:-1]
             print(result)
             x += 1
-            #This area here appears to be broken the JSON string received from the docker
-            #Does not parse correctly and I get an error I am not sure why
+
             js_obj = js.loads(result)
             response.get("response").append(js_obj)
     return response
