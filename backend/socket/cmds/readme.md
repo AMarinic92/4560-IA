@@ -13,7 +13,8 @@ Then you can interact with the docker as needed, note that in code the docker is
 For GPU access you require the following options added to the docker run  
     docker run --runtime=nvidia --gpus all(or number) Tensor-Image <command here>  
 
-The torch-image is a clone of the tensor-image but has pytorch installed instead. We had tried to convert a pytorch model for determining decorative/aethestic images vs non. We made the image as a last effort.  
+The torch-i
+mage is a clone of the tensor-image but has pytorch installed instead. We had tried to convert a pytorch model for determining decorative/aethestic images vs non. We made the image as a last effort.  
 
 
 # Classes
