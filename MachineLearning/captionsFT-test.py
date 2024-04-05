@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
-from transformers import pipeline, BlipProcessor, BlipImageProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TFBertTokenizer, TrainingArguments, Trainer, DataCollatorWithPadding
-from datasets import load_dataset, load_metric, get_dataset_split_names, Image
+from transformers import DefaultDataCollator, pipeline, BlipProcessor, BlipImageProcessor, TFAutoModel, TFBlipForConditionalGeneration, AutoTokenizer, TFBertTokenizer, TrainingArguments, Trainer, DataCollatorWithPadding
+from datasets import load_dataset, load_metric, get_dataset_split_names, Image, Dataset, Features, ClassLabel, Value
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 import io
@@ -71,19 +71,29 @@ tokenized_dataset = dset.map(process_function, batched=True)
 # tokenized_dataset = tokenized_dataset.map(transforms, remove_columns=["image"], batched=True)
 
 print(tokenized_dataset[0].keys())
+print(tokenized_dataset['label'])
 # print(tokenized_dataset[0]["pixel_values"])
 
 
 
-# data_collator = DataCollatorWithPadding(,return_tensors="tf")
+#data_collator = DataCollatorWithPadding(tokenizer = tokenizer,return_tensors="np")
+# data_collator = DefaultDataCollator(return_tensors="np")
 
-tf_dataset = tokenized_dataset.to_tf_dataset(
-    columns=['pixel_values', 'input_ids', 'attention_mask'],
-    label_cols='label',
-    batch_size=2,
-    # collate_fn=data_collator,
-    shuffle=True
-)
+# tf_dataset = tokenized_dataset.to_tf_dataset(
+#     columns=['pixel_values', 'input_ids', 'attention_mask'],
+#     label_cols='label',
+#     batch_size=2,
+#     collate_fn=data_collator,
+#     shuffle=True
+# )
+features = Features({'image': Image(),
+               'label':ClassLabel(num_classes=2), 
+               'caption': Value(dtype='string', id=None)})
+tf_dataset = Dataset.from_dict({"image":dset['image'], 
+                                'label':dset['label'],
+                                'caption':dset['caption']}, features=features)
+print(tf_dataset)
+tf_dataset = tf_dataset.with_format("tf",columns=["image","label, caption"], output_all_columns=True)
 
 # print(tf_dataset)
 
@@ -99,8 +109,10 @@ model = TFBlipForConditionalGeneration.from_pretrained(checkpoint)
 
 # ## 
 
-loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
-model.compile(optimizer='adam', loss=loss)
+# loss = tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)
+model.compile(optimizer='adam')
+
+
 
 model.fit(
     tf_dataset,

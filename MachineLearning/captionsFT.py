@@ -61,12 +61,12 @@ def transforms(examples):
 
 tokenized_dataset = dset.map(tokenize_function, batched=True)
 
-tokenized_dataset = tokenized_dataset.map(transforms, remove_columns=["image"], batched=True)
+#tokenized_dataset = tokenized_dataset.map(transforms, remove_columns=["image"], batched=True)
 
 print(tokenized_dataset[0])
 
 
-data_collator = DataCollatorWithPadding(tokenizer=tokenizer,return_tensors="tf")
+data_collator = DataCollatorWithPadding(tokenizer=tokenizer,return_tensors="np")
 
 tf_dataset = tokenized_dataset.to_tf_dataset(
     columns=['pixel_values', 'input_ids', 'attention_mask'],
