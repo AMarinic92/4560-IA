@@ -40,6 +40,7 @@ Follow the install instructions in each of the following:
 - [Frontend](frontend/README.md)
 - [Backend](backend/socket/readMe.md)
 - [Docker](backend/socket/cmds/README.md)
+</br>
 Then launch chrome and find the app in the side panel.
 
 ## Contributors
