@@ -22,9 +22,11 @@ As a proof of concept, our checker works well. There exist more models, that wou
 
 The Internet Archive also provided us with some of their JIRA ticket issues and an accessibility report to help us create our accessibility checker. 
 
-### Feedback From Brenton 
+For example, one of the issues was links that just said "Click Here", which is bad practice as it may cause issues for users of assistive technologies. We investigated using summarization and tokenization for generating descriptive links to assist with this issue.
 
-Throughout the process, we worked closely with our Internet Archive partner, Brenton who was able to provide some feedback and suggested some features. 
+### Feedback From Internet Archive
+
+Throughout the process, we worked closely with our Internet Archive partner who was able to provide some feedback and suggest some features. 
 
 Suggestions made:
 
@@ -61,4 +63,6 @@ Suggestions made:
 
 #### Models used
 
-- Image-to-Text: [https://huggingface.co/tasks/image-to-text]
+- Image Captioning: [https://huggingface.co/Salesforce/blip-image-captioning-large](https://huggingface.co/Salesforce/blip-image-captioning-large)
+- Summarization: [https://huggingface.co/facebook/bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn)
+- Token Classification: [https://huggingface.co/Jean-Baptiste/camembert-ner](https://huggingface.co/Jean-Baptiste/camembert-ner
