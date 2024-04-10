@@ -67,5 +67,5 @@ Then launch chrome and find the app in the side panel.
 
 - [Tehillah K](https://github.com/TehillahK)
 - [Andrew M](https://github.com/AMarinic92) 
-- [Rozen N]()
+- [Rozen N](https://github.com/RozenNoureev)
 
