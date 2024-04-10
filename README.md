@@ -35,12 +35,9 @@ Suggestions made:
 - A loading indicator while the checker is processing.
 - To add an info button to explain to the user what is being checked.
 
-## Installation
-
-
-
-## Usage
-
+## Installation & Usage
+- [Frontend](frontend/README.md)
+- [Backend](backend/socket/readMe.md)
 
 ## Contributors
 
