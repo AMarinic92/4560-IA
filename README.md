@@ -65,4 +65,4 @@ Suggestions made:
 
 - Image Captioning: [https://huggingface.co/Salesforce/blip-image-captioning-large](https://huggingface.co/Salesforce/blip-image-captioning-large)
 - Summarization: [https://huggingface.co/facebook/bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn)
-- Token Classification: [https://huggingface.co/Jean-Baptiste/camembert-ner](https://huggingface.co/Jean-Baptiste/camembert-ner
+- Token Classification: [https://huggingface.co/Jean-Baptiste/camembert-ner](https://huggingface.co/Jean-Baptiste/camembert-ner)
