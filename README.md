@@ -43,11 +43,6 @@ Follow the install instructions in each of the following:
 </br>
 Then launch chrome and find the app in the side panel.
 
-## Contributors
-
-- Tehillah Kangamba
-- Andrew Marinic
-- Rozen Noureev
 
 ## License
 
@@ -68,8 +63,9 @@ Then launch chrome and find the app in the side panel.
 - Summarization: [https://huggingface.co/facebook/bart-large-cnn](https://huggingface.co/facebook/bart-large-cnn)
 - Token Classification: [https://huggingface.co/Jean-Baptiste/camembert-ner](https://huggingface.co/Jean-Baptiste/camembert-ner)
 
-## Authors
+## Contributors
 
+- [Tehillah K](https://github.com/TehillahK)
 - [Andrew M](https://github.com/AMarinic92) 
 - [Rozen N]()
-- [Tehillah K](https://github.com/TehillahK)
+
